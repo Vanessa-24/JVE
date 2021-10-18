@@ -1,0 +1,23 @@
+
+/******************************************************************/
+/* Personal */
+.colour-circle{
+    border-radius: 50%; 
+    width: 20px; 
+    height: 20px;
+    display: inline-block;
+    position: relative;
+    margin-right: 8px;
+
+}
+.colour-circle.selected:after{
+    border-radius: 50%;
+    border: 2px solid #404286;
+    position: absolute;
+    content: '';
+    top: -5px;
+    left: -5px;
+    bottom: -5px;
+    right: -5px;
+    margin: 1px;
+}
