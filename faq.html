@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="jve.css">
+    <title>FAQs</title>
+    <style>
+        /* Style the buttons that are used to open and close the accordion panel */
+        .accordion {
+            background-color: #EAE6EF;
+            font-size: 1.1rem;
+            font-family: Roboto, Arial;
+            font-weight: bold;
+            color: #44404A;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+        }
+        .accordion:after {
+            /* content: "\02C5";  */
+            content: "\25B2"; 
+            font-size: 13px;
+            color: #44404A;
+            float: right;
+            margin-left: 5px;
+            }
+    
+        .active:after {
+            /* content: "\02C4";  */
+            content: "\25BC"; 
+        }
+        .faq-content .accordion:nth-child(4n-1){
+            background-color: white;
+        }
+    
+        /* Style the accordion panel. Note: hidden by default */
+        .panel {
+            padding: 0 18px;
+            background-color: #EAE6EF;
+            max-height: 0;
+            overflow: hidden;
+            color: #333333;
+            transition: max-height 0.5s ease-out;
+        }
+        .panel p{
+            padding-bottom: 10px;
+        }
+        .faq-content .panel:nth-child(4n){
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav>
+            <a href="./">
+                <img class="jve-logo" alt="JVE Logo" src="img/JVE-logo.png">
+            </a>
+            <div class="header-products">
+                <a href="">Smartphones</a>
+                <a href="">Laptops</a>
+                <a href="">Desktops</a>
+                <a href="">Watches</a>
+                <a href="">Earbuds</a>
+            </div>
+            <a href="">
+                <img alt="shopcart" src="img/bag_icon.svg">
+            </a>
+        </nav>
+    </header>
+    <div class="content">
+        <div class="title">
+            Frequently Asked Questions
+        </div>
+        <hr>
+        <div class="faq-content">
+            <button class="accordion">
+                What are JVE shipping options?
+            </button>
+            <div class="panel">
+              <p>
+                Currently, only local shipping is provided by us. 
+                <br><br>
+                We apologise for any inconvinence caused.
+              </p>
+            </div>
+  
+            <button class="accordion">
+                How do I get free shipping on JVE?
+            </button>
+            <div class="panel">
+              <p>
+                Spend $300 above to attain free shipping off all local orders.
+                <br><br>
+                International orders will be subjected to VAT charges.
+              </p>
+            </div>
+
+            <button class="accordion">
+                What is JVE shipping return policy?
+            </button>
+            <div class="panel">
+              <p>
+                Products bought can only be return within 14 days from the date of purchase.
+                <br><br>
+                Products cannot be returned if it has been damage by a drop or water.
+              </p>
+            </div>
+
+            <button class="accordion">
+                How do I return my JVE order?
+            </button>
+            <div class="panel">
+              <p>
+                You can head down to our store to return your order or mail it to us. The mailing address is 234 Jurong East #08-88 549888
+              </p>
+            </div>
+
+            <button class="accordion">
+                Do JVE products have warranty?
+            </button>
+            <div class="panel">
+              <p>
+                Yes, smartphones, watches and earbuds have a 6 months warranty while laptops and desktops have a one year warranty.
+              </p>
+            </div>
+
+            <button class="accordion">
+                How do I track my JVE order status? 
+            </button>
+            <div class="panel">
+              <p>
+                We will send you an email to update you on your order status. 
+              </p>
+            </div>
+
+            <button class="accordion">
+                Can I cancel or change my JVE order?
+            </button>
+            <div class="panel">
+              <p>
+                You can't make changes, but you can cancel an order within 30 minutes of placing it.
+                <br><br>
+                To cancel an order, please email us at jve@gmail.com or call us at 64405323
+              </p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-wrapper">
+            <ul>
+                <li class="footer-heading">Shop</li>
+                <li><a href="">Smartphones</a></li>
+                <li><a href="">Laptops</a></li>
+                <li><a href="">Desktops</a></li>
+                <li><a href="">Watches</a></li>
+                <li><a href="">Earbuds</a></li>
+            </ul>
+            <ul>
+                <li class="footer-heading">Support</li>
+                <li><a href="">Contact Us</a></li>
+                <li><a href="faq.html">FAQs</a></li>
+            </ul>
+            <ul>
+                <li class="footer-heading">JVE</li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="">Stores</a></li>
+            </ul>
+            <div class="break"></div>
+            <div class="copyright">
+                Copyright © 2021 JVE Pte Ltd. All arights reserved  
+            </div>
+        </div>
+    </footer>
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+        var panelHeight = 120;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                /* Toggle between adding and removing the "active" class,
+                to highlight the button that controls the panel */
+                this.classList.toggle("active");
+
+                /* Toggle between hiding and showing the active panel */
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight =  panelHeight + "px";
+                }
+            });
+        }
+      </script>
+    
+</body>
+</html>
