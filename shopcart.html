@@ -109,7 +109,7 @@
                     <td class="product-img"><img src="img/test-phone.png" style="width:100%"></td>
                     <td class="product-description">
                         <div>
-                            <div class="phone-model"><strong>Samsung Galaxy A12</strong></div>
+                            <div class="phone-model"><strong>Samsung Galaxy A12 number 2</strong></div>
                             <div class="specifications">Specifications</div>
                             <div class="colour">Colours: 
                                 <span class="colour-picker-wrapper"> 
@@ -198,7 +198,7 @@
 
         // remove the whole <tr> of the row where the bin button is clicked.
         function remove(){
-            var rowRemove = event.srcElement.parentNode.parentNode.parentNode;
+            var rowRemove = event.srcElement.closest("tr");
             rowRemove.remove();
         }
       </script>
