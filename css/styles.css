@@ -42,12 +42,12 @@
 }
 
 #watches.column-half {
-  background-image: url("img/apple-watch.png");
+  background-image: url("../img/apple-watch.png");
   background-size: cover;
 }
 
 #earbuds.column-half {
-  background-image: url("img/airpods-dark.png");
+  background-image: url("../img/airpods-dark.png");
   background-size: cover;
 }
 
