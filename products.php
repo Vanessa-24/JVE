@@ -49,7 +49,7 @@
         }
         .slideshow{
             padding: 0 50px;
-            width: 50%;
+            flex:1 1 0;
         }
         /* Hide the images by default */
         .mySlides {
@@ -91,6 +91,7 @@
         .product-description{
             /* same padding as slideshow */
             padding-right:50px;
+            flex:1 1 0;
         }
 
         .price{
@@ -247,7 +248,7 @@
                     $<?php echo $product_result['price'];?>
                 </div>
                 <div class="details">
-                    <?php echo utf8_encode($product_result['detail']);?>
+                    <?php echo $product_result['detail'];?>
                 </div>
                 <div class="specifications">
                     <?php echo str_replace(">","<br><br>",$product_result['specification']);?>
