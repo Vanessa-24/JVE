@@ -39,8 +39,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-    <link rel="stylesheet" href="jve.css">
-    <link rel="stylesheet" href="product_shopcart.css">
+    <link rel="stylesheet" href="css/jve.css">
+    <link rel="stylesheet" href="css/product_shopcart.css">
     <title>Product Details</title>
     <style>
         /* Slideshow container */
@@ -298,7 +298,7 @@
             </div>
         </div>
     </footer>
-    <script src="product.js"></script>
+    <script src="js/product.js"></script>
     <script>
         //for slideshow
         var slideIndex = 1;

@@ -1,31 +1,31 @@
 /* FONT SETTINGS */
 @font-face {
   font-family: Roboto;
-  src: url(fonts/Roboto/Roboto-Regular.ttf);
+  src: url(../fonts/Roboto/Roboto-Regular.ttf);
   font-weight: 400;
 }
 
 @font-face {
   font-family: Roboto;
-  src: url(fonts/Roboto/Roboto-Medium.ttf);
+  src: url(../fonts/Roboto/Roboto-Medium.ttf);
   font-weight: 600;
 }
 
 @font-face {
   font-family: Roboto;
-  src: url(fonts/Roboto/Roboto-Bold.ttf);
+  src: url(../fonts/Roboto/Roboto-Bold.ttf);
   font-weight: bold;
 }
 
 @font-face {
   font-family: PTSans;
-  src: url(fonts/PT_Sans/PTSans-Regular.ttf);
+  src: url(../fonts/PT_Sans/PTSans-Regular.ttf);
   font-weight: 400;
 }
 
 @font-face {
   font-family: PTSans;
-  src: url(fonts/PT_Sans/PTSans-Bold.ttf);
+  src: url(../fonts/PT_Sans/PTSans-Bold.ttf);
   font-weight: bold;
 }
 
