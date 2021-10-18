@@ -1,0 +1,221 @@
+/****** Home CSS ******/
+.container {
+  font-family: Roboto;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  height: 650px;
+}
+
+#smartphones .row,
+#laptops .row,
+#desktops .row {
+  padding: 0 12rem;
+}
+
+.column-half {
+  flex: 50%;
+}
+
+#smartphones .column-half,
+#laptops .column-half,
+#desktops .column-half {
+  align-self: center;
+}
+
+.column-half.right-col {
+  flex: 0%;
+}
+
+/* Backgrounds */
+#smartphones.container {
+  background: #e2e2e2;
+}
+
+#laptops.container {
+  background: #fbfbfb;
+}
+
+#desktops.container {
+  background: #eae6ef;
+}
+
+#watches.column-half {
+  background-image: url("img/apple-watch.png");
+  background-size: cover;
+}
+
+#earbuds.column-half {
+  background-image: url("img/airpods-dark.png");
+  background-size: cover;
+}
+
+/* Description styling */
+.description h1 {
+  font-weight: bold;
+  font-size: 4.5rem;
+  margin: 0;
+  margin-bottom: 25px;
+}
+
+.description h3 {
+  font-weight: 600;
+  font-size: 2rem;
+  font-style: italic;
+  margin: 0;
+  margin-bottom: 25px;
+}
+
+.description p {
+  font-size: 1.1rem;
+  color: #7f7989;
+  margin-bottom: 40px;
+}
+
+/* Watches and Earbuds titles styling */
+#watches h2,
+#earbuds h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 3.75rem;
+  color: white;
+  position: relative;
+  top: 30%;
+}
+
+/* Button styling */
+.purple-btn {
+  font-size: 1.75rem;
+  color: #4d2e7a;
+  text-decoration: none;
+  border: 2px solid #4d2e7a;
+  padding: 10px 30px;
+  border-radius: 30px;
+}
+
+.white-btn {
+  font-size: 1.25rem;
+  color: #eae6ef;
+  text-decoration: none;
+  border: 2px solid #eae6ef;
+  padding: 10px 20px;
+  border-radius: 25px;
+  position: relative;
+  top: 26%;
+  left: 39.5%;
+}
+
+.purple-btn:hover {
+  color: white;
+  background: #4d2e7a;
+}
+
+.purple-btn:hover .arrow-icon {
+  fill: #ffffff;
+  stroke: #ffffff;
+}
+
+.white-btn:hover {
+  color: #44404a;
+  background: #eae6ef;
+}
+
+.white-btn:hover .arrow-icon {
+  fill: #44404a;
+  stroke: #44404a;
+}
+
+.icon svg {
+  padding-left: 8px;
+}
+
+/******************************************************************/
+/****** Stores CSS ******/
+.store-branch {
+  text-align: center;
+  padding-bottom: 3.5rem;
+}
+
+/* Remove padding of last branch div */
+.stores > .store-branch ~ .store-branch {
+  padding-bottom: 0;
+}
+
+p.branch-name {
+  letter-spacing: 2px;
+  font-size: 1.1rem;
+}
+
+p.branch-loc {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.store-branch img {
+  padding-top: 1.5rem;
+}
+
+/******************************************************************/
+/****** Contact Us CSS ******/
+.content.contact-us {
+  text-align: center;
+}
+
+.contact-us p {
+  margin: 0;
+  padding-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+.contact-us form {
+  padding-top: 3rem;
+}
+
+.contact-us input,
+.contact-us textarea {
+  width: 700px;
+  padding: 15px 25px;
+  border: 1px solid #c4c4c4;
+  border-radius: 25px;
+  margin-bottom: 30px;
+  font-size: 1.2rem;
+}
+
+.contact-us textarea {
+  padding-top: 20px;
+}
+
+::placeholder {
+  color: #c4c4c4;
+  font-family: Roboto;
+}
+
+.contact-us .submit-btn {
+  width: 750px;
+  padding: 15px 20px;
+  border: 2px solid #5c1fb5;
+  border-radius: 25px;
+  cursor: pointer;
+  color: #5c1fb5;
+  background-color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.contact-us .submit-btn:hover {
+  color: white;
+  background-color: #5c1fb5;
+}
+
+.submit-btn:hover .msg-icon {
+  fill: #ffffff;
+}
+
+.contact-us .submit-btn svg {
+  vertical-align: text-top;
+  position: relative;
+  left: -12px;
+  top: -2px;
+}
