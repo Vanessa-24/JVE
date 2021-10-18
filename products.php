@@ -247,7 +247,7 @@
                     $<?php echo $product_result['price'];?>
                 </div>
                 <div class="details">
-                    <?php echo $product_result['detail'];?>
+                    <?php echo utf8_encode($product_result['detail']);?>
                 </div>
                 <div class="specifications">
                     <?php echo str_replace(">","<br><br>",$product_result['specification']);?>
