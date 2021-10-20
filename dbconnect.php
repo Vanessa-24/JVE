@@ -6,6 +6,7 @@ if ($dbcnx->connect_error){
 	exit;
 	// above 2 statments same as die() //
 } else {
+	//set encoding for database connection so that special character would appear
 	$dbcnx->set_charset("utf8");
 }
 /*	else
