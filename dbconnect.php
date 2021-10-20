@@ -5,7 +5,9 @@ if ($dbcnx->connect_error){
 	echo "Database is not online"; 
 	exit;
 	// above 2 statments same as die() //
-	}
+} else {
+	$dbcnx->set_charset("utf8");
+}
 /*	else
 	echo "Congratulations...  MySql is working..";
 */
