@@ -2,6 +2,7 @@
     include "dbconnect.php";
     $product_table_name = "test_product";
     $product_details_table_name = "test_details";
+    $product_image_table_name = "test_img";
     $product_id = $_GET["id"];
     //echo var_dump($product_id);
     $query = "SELECT * from " .$product_table_name." WHERE product_id=".$product_id;
@@ -11,7 +12,7 @@
     if ($num_results >0 )
     {
         $product_result = $result->fetch_assoc();
-        var_dump($product_result);
+        //var_dump($product_result);
 
     }
     $query = "SELECT * from " .$product_details_table_name." WHERE product_id=".$product_id;
@@ -19,12 +20,31 @@
     $num_results = $result->num_rows;
     //id to query will contain details_id to get the img link etc from products_img
     $id_to_query = array();
+    //colours will be an indexed array that will hold the colour name, colour code and img link of the products
+    // e.g [ ["colour_name", "colour_code", [imglin1, imglink2] ] , ["colour_name", "colour_code", [imglin1, imglink2] ] ]
+    $colours = array();
     
     for ($i=0; $i <$num_results; $i++) {
         $details_result = $result->fetch_assoc();
-        $colours[$details_result['colour']] = $details_result['colour_code'];
+        array_push($colours,array(ucwords($details_result['colour']), $details_result['colour_code']));
+        array_push($id_to_query,$details_result["details_id"]);
     }
     var_dump($colours);
+    var_dump($id_to_query);
+    for ($i=0; $i <count($id_to_query); $i++) {
+        $query = "SELECT * from " .$product_image_table_name." WHERE details_id = ".$id_to_query[$i];
+        echo $query;
+        $result = $dbcnx->query($query);
+        $num_results = $result->num_rows;
+        $img_links = array();
+        for ($j=0; $j <$num_results; $j++) {
+            $details_result = $result->fetch_assoc();
+            array_push($img_links,$details_result['img_link']);
+        }
+        array_push($colours[$i],$img_links);
+    }
+    echo "<br>";
+    var_dump($colours[0]);
 
      $result->free();
      $dbcnx->close();
@@ -136,6 +156,9 @@
         }
         .active, .dot:hover {
             background-color: #717171;
+        }
+        .details{
+            padding-top: 20px;
         }
         
 
@@ -254,11 +277,19 @@
                     <?php echo str_replace(">","<br><br>",$product_result['specification']);?>
                 </div>
                 <div class="colour">
-                    Color: <span class="colour-text">Black</span>
+                    Color: <span class="colour-text"><?php echo $colours[0][0] ?></span>
                 </div>
                 <div class="colour-picker-wrapper"> 
-                    <span class="colour-circle selected" id="colour-0" style="background-color: black;"></span>
-                    <span class="colour-circle" id="colour-1" style="background-color: blue;"></span>
+                    <?php 
+                        for ($i=0; $i <count($colours); $i++) {
+                            if($i==0){
+                                echo '<span class="colour-circle selected" id="colour-'.$i.'" style="background-color: '.$colours[$i][1].';"></span>';
+                            } else {
+                                echo '<span class="colour-circle" id="colour-'.$i.'" style="background-color: '.$colours[$i][1].';"></span>';
+
+                            }
+                        }
+                    ?>
                 </div>
                 <div class="quantity">
                     <button class="quantity-btn" onclick="decrease(this)"> - </button>
@@ -301,6 +332,8 @@
     </footer>
     <script src="js/product.js"></script>
     <script>
+        var coloursDetails = <?php echo json_encode($colours, JSON_HEX_TAG); ?>;
+        console.log(coloursDetails);
         //for slideshow
         var slideIndex = 1;
         showSlides(slideIndex);
