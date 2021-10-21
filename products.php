@@ -239,28 +239,26 @@
             <div class="slideshow">
                 <div class="slideshow-container">
                     <!-- Full-width images with number and caption text -->
-                    <div class="mySlides fade">
-                    <img class="product-img" src="https://images.samsung.com/is/image/samsung/p6pim/sg/sm-a127fzkhxsp/gallery/sg-galaxy-a12-a127-sm-a127fzkhxsp-483334092?$684_547_PNG$" style="width:100%">
-                    </div>
-                
-                    <div class="mySlides fade">
-                    <img class="product-img" src="https://images.samsung.com/is/image/samsung/p6pim/sg/sm-a127fzkhxsp/gallery/sg-galaxy-a12-a127-sm-a127fzkhxsp-483334077?$684_547_PNG$" style="width:100%">
-                    </div>
-                
-                    <div class="mySlides fade">
-                    <img class="product-img" src="https://images.samsung.com/is/image/samsung/p6pim/sg/sm-a127fzkhxsp/gallery/sg-galaxy-a12-a127-sm-a127fzkhxsp-483334078?$684_547_PNG$" style="width:100%">
-                    </div>
-                
+                    <?php
+                        for ($i=0; $i<count($colours[0][2]); $i++){
+                            echo '<div class="mySlides fade">';
+                            echo '<img class="product-img" src='.$colours[0][2][$i].' style="width:100%">';
+                            echo '</div>';
+                        }
+                    ?>
                     <!-- Next and previous buttons -->
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
                 </div>
                 <br>
-                <!-- The dots/circles -->
+                <!-- The dots/circles for slideshow -->
                 <div style="text-align: center;">
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <?php
+                        for ($i=0; $i<count($colours[0][2]); $i++){
+                            $j = $i +1;
+                            echo '<span class="dot" onclick="currentSlide('.$j.')"></span>';
+                        }
+                    ?>
                 </div>
             </div>
             <div class="product-description">
@@ -365,22 +363,17 @@
             slides[slideIndex-1].style.display = "block";
             dots[slideIndex-1].className += " active";
         }   
-        var imgColor = ["Black", "Blue"];
-        // for showing different img based on the colour chosen
-        var imgLinkDict = {
-            0: [
-            "https://images.samsung.com/is/image/samsung/p6pim/sg/sm-a127fzkhxsp/gallery/sg-galaxy-a12-a127-sm-a127fzkhxsp-483334092?$684_547_PNG$",
-            "https://images.samsung.com/is/image/samsung/p6pim/sg/sm-a127fzkhxsp/gallery/sg-galaxy-a12-a127-sm-a127fzkhxsp-483334077?$684_547_PNG$",
-            "https://images.samsung.com/is/image/samsung/p6pim/sg/sm-a127fzkhxsp/gallery/sg-galaxy-a12-a127-sm-a127fzkhxsp-483334078?$684_547_PNG$"
-            ], 
-            1: [
-                "https://images.samsung.com/is/image/samsung/p6pim/sg/sm-a127fzbhxsp/gallery/sg-galaxy-a12-a127-sm-a127fzbhxsp-483334075?$684_547_PNG$",
-                "https://images.samsung.com/is/image/samsung/p6pim/sg/sm-a127fzbhxsp/gallery/sg-galaxy-a12-a127-sm-a127fzbhxsp-483334060?$684_547_PNG$",
-                "https://images.samsung.com/is/image/samsung/p6pim/sg/sm-a127fzbhxsp/gallery/sg-galaxy-a12-a127-sm-a127fzbhxsp-483334061?$684_547_PNG$"
-
-            ]
-           
-        };
+        //Array that holds the name of the colours
+        var imgColor = [];
+        // dict that contains the img link for each colour, for showing different img based on the colour chosen
+        var imgLinkDict = {};
+        for (var i=0; i < coloursDetails.length; i++){
+            imgColor.push(coloursDetails[i][0]);
+            imgLinkDict[i] = coloursDetails[i][2];
+        }
+        console.log(imgColor);
+        console.log(imgLinkDict);
+        
          // for color picker
         var colours = document.getElementsByClassName("colour-circle");
         for(var i =0; i <colours.length; i++){
