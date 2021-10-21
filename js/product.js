@@ -6,8 +6,8 @@ function decrease(el){
     }
 }
 function increase(el){
+    var maxQty = el.dataset.maxqty;
     var qtyText = el.parentNode.getElementsByClassName("quantity-text");
-    var maxQty = 5;
     if (Number(qtyText[0].value)+1<=maxQty){
         qtyText[0].value = Number(qtyText[0].value)+1+"";
     }

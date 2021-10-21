@@ -21,12 +21,12 @@
     //id to query will contain details_id to get the img link etc from products_img
     $id_to_query = array();
     //colours will be an indexed array that will hold the colour name, colour code and img link of the products
-    // e.g [ ["colour_name", "colour_code", [imglin1, imglink2] ] , ["colour_name", "colour_code", [imglin1, imglink2] ] ]
+    // e.g [ ["colour_name", "colour_code", qty, [imglin1, imglink2] ] , ["colour_name", "colour_code", qty, [imglin1, imglink2] ] ]
     $colours = array();
     
     for ($i=0; $i <$num_results; $i++) {
         $details_result = $result->fetch_assoc();
-        array_push($colours,array(ucwords($details_result['colour']), $details_result['colour_code']));
+        array_push($colours,array(ucwords($details_result['colour']), $details_result['colour_code'], $details_result['stock']));
         array_push($id_to_query,$details_result["details_id"]);
     }
     var_dump($colours);
@@ -120,7 +120,7 @@
             font-weight: bold;
         }
         .quantity{
-            padding: 30px 0; 
+            padding: 30px 0 20px 0; 
         }
         .quantity-btn{
             background-color: transparent;
@@ -168,6 +168,12 @@
             -webkit-animation-duration: 1.5s;
             animation-name: fade;
             animation-duration: 1.5s;
+        }
+        .out-of-stock{
+            color:red;
+            padding-bottom:20px;
+            font-weight:bold;
+            font-size:1.2rem;
         }
         .shopcart-btn{
             background-color: transparent;
@@ -240,9 +246,9 @@
                 <div class="slideshow-container">
                     <!-- Full-width images with number and caption text -->
                     <?php
-                        for ($i=0; $i<count($colours[0][2]); $i++){
+                        for ($i=0; $i<count($colours[0][3]); $i++){
                             echo '<div class="mySlides fade">';
-                            echo '<img class="product-img" src='.$colours[0][2][$i].' style="width:100%">';
+                            echo '<img class="product-img" src='.$colours[0][3][$i].' style="width:100%">';
                             echo '</div>';
                         }
                     ?>
@@ -254,7 +260,7 @@
                 <!-- The dots/circles for slideshow -->
                 <div style="text-align: center;">
                     <?php
-                        for ($i=0; $i<count($colours[0][2]); $i++){
+                        for ($i=0; $i<count($colours[0][3]); $i++){
                             $j = $i +1;
                             echo '<span class="dot" onclick="currentSlide('.$j.')"></span>';
                         }
@@ -292,7 +298,10 @@
                 <div class="quantity">
                     <button class="quantity-btn" onclick="decrease(this)"> - </button>
                     <input type="text" value="1" class="quantity-text">
-                    <button class="quantity-btn" onclick="increase(this)"> + </button>
+                    <button class="quantity-btn" id="increase-qty" data-maxqty= "<?php echo $colours[0][2];?>" onclick="increase(this)"> + </button>
+                </div>
+                <div class="out-of-stock" style="display:none">
+                    OUT OF STOCK
                 </div>
                 <button class="shopcart-btn"><svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12.5 1.5625C13.536 1.5625 14.5296 1.97405 15.2621 2.70661C15.9947 3.43918 16.4062 4.43275 16.4062 5.46875V6.25H8.59375V5.46875C8.59375 4.43275 9.0053 3.43918 9.73786 2.70661C10.4704 1.97405 11.464 1.5625 12.5 1.5625ZM17.9688 6.25V5.46875C17.9688 4.01835 17.3926 2.62735 16.367 1.60176C15.3414 0.57617 13.9504 0 12.5 0C11.0496 0 9.6586 0.57617 8.63301 1.60176C7.60742 2.62735 7.03125 4.01835 7.03125 5.46875V6.25H1.5625V21.875C1.5625 22.7038 1.89174 23.4987 2.47779 24.0847C3.06384 24.6708 3.8587 25 4.6875 25H20.3125C21.1413 25 21.9362 24.6708 22.5222 24.0847C23.1083 23.4987 23.4375 22.7038 23.4375 21.875V6.25H17.9688ZM3.125 7.8125H21.875V21.875C21.875 22.2894 21.7104 22.6868 21.4174 22.9799C21.1243 23.2729 20.7269 23.4375 20.3125 23.4375H4.6875C4.2731 23.4375 3.87567 23.2729 3.58265 22.9799C3.28962 22.6868 3.125 22.2894 3.125 21.875V7.8125Z" fill="#4D2E7A"/>
@@ -330,6 +339,8 @@
     </footer>
     <script src="js/product.js"></script>
     <script>
+        checkStock();
+        //store php variale in javascript
         var coloursDetails = <?php echo json_encode($colours, JSON_HEX_TAG); ?>;
         console.log(coloursDetails);
         //for slideshow
@@ -369,7 +380,7 @@
         var imgLinkDict = {};
         for (var i=0; i < coloursDetails.length; i++){
             imgColor.push(coloursDetails[i][0]);
-            imgLinkDict[i] = coloursDetails[i][2];
+            imgLinkDict[i] = coloursDetails[i][3];
         }
         console.log(imgColor);
         console.log(imgLinkDict);
@@ -389,6 +400,33 @@
             var productImg = document.getElementsByClassName("product-img");
             for (var i =0; i<productImg.length; i++){
                 productImg[i].src = imgLinkDict[numColour][i];
+            }
+            //set the stock amount for the colour chosen
+            var qty_node = document.getElementById("increase-qty");
+            qty_node.setAttribute("data-maxqty", coloursDetails[numColour][2]);
+            var qty_text = document.getElementsByClassName("quantity-text")[0];
+            //reset qty to 1
+            qty_text.value = 1;
+            checkStock();
+
+        }
+
+        function checkStock(){
+            var stock = document.getElementById("increase-qty").dataset.maxqty;
+            if(stock == 0) {
+                document.getElementsByClassName("out-of-stock")[0].style.display = "block";
+                var quantityBtn = document.getElementsByClassName("quantity-btn");
+                for (var i =0; i<quantityBtn.length; i++){
+                    quantityBtn[i].disabled = true;
+                }
+                document.getElementsByClassName("quantity-text")[0].disabled = true;
+            } else {
+                document.getElementsByClassName("out-of-stock")[0].style.display = "none";
+                var quantityBtn = document.getElementsByClassName("quantity-btn");
+                for (var i =0; i<quantityBtn.length; i++){
+                    quantityBtn[i].disabled = false;
+                }
+                document.getElementsByClassName("quantity-text")[0].disabled = false;
             }
         }
 
