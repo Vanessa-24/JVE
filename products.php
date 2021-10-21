@@ -4,6 +4,16 @@
     $product_details_table_name = "test_details";
     $product_image_table_name = "test_img";
     $product_id = $_GET["id"];
+    session_start();
+    if (!isset($_SESSION['cart'])){
+        $_SESSION['cart'] = array();
+    }
+    // if (isset($_GET['buy'])) {
+    //     $_SESSION['cart'][] = $_GET['buy'];
+    //     var_dump($_SESSION['cart']);
+    //     header('location: ' . $_SERVER['PHP_SELF']. '?' . SID);
+    //     exit();
+    // }
     //echo var_dump($product_id);
     $query = "SELECT * from " .$product_table_name." WHERE product_id=".$product_id;
     //echo($query);
@@ -29,11 +39,11 @@
         array_push($colours,array(ucwords($details_result['colour']), $details_result['colour_code'], $details_result['stock']));
         array_push($id_to_query,$details_result["details_id"]);
     }
-    var_dump($colours);
-    var_dump($id_to_query);
+    //var_dump($colours);
+    //var_dump($id_to_query);
     for ($i=0; $i <count($id_to_query); $i++) {
         $query = "SELECT * from " .$product_image_table_name." WHERE details_id = ".$id_to_query[$i];
-        echo $query;
+        //echo $query;
         $result = $dbcnx->query($query);
         $num_results = $result->num_rows;
         $img_links = array();
@@ -43,8 +53,8 @@
         }
         array_push($colours[$i],$img_links);
     }
-    echo "<br>";
-    var_dump($colours[0]);
+    //echo "<br>";
+    //var_dump($colours[0]);
 
      $result->free();
      $dbcnx->close();
@@ -157,10 +167,28 @@
         .active, .dot:hover {
             background-color: #717171;
         }
+    
         .details{
             padding-top: 20px;
         }
-        
+        .add-cart-msg{
+            padding-left:20px;
+            display:none;
+        }
+
+        /* .fade-out {
+            animation: fadeOut 2s;
+            opacity: 0;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        } */
 
         /* Fading animation */
         .fade {
@@ -200,6 +228,19 @@
         }
         .shopcart-btn:hover svg rect{
             fill: #4D2E7A;
+        }
+        /* disabled shopcart btn styling */
+        .shopcart-btn:disabled,.shopcart-btn:disabled:hover {
+            color: grey;
+            border-color: grey;
+            background-color:transparent;
+        }
+        .shopcart-btn:disabled:hover svg path,.shopcart-btn:disabled svg path{
+            fill: grey;
+        }
+        .shopcart-wrapper{
+            display:flex;
+            align-items: center;
         }
         .wrapper{
             display: flex;
@@ -303,9 +344,12 @@
                 <div class="out-of-stock" style="display:none">
                     OUT OF STOCK
                 </div>
-                <button class="shopcart-btn"><svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12.5 1.5625C13.536 1.5625 14.5296 1.97405 15.2621 2.70661C15.9947 3.43918 16.4062 4.43275 16.4062 5.46875V6.25H8.59375V5.46875C8.59375 4.43275 9.0053 3.43918 9.73786 2.70661C10.4704 1.97405 11.464 1.5625 12.5 1.5625ZM17.9688 6.25V5.46875C17.9688 4.01835 17.3926 2.62735 16.367 1.60176C15.3414 0.57617 13.9504 0 12.5 0C11.0496 0 9.6586 0.57617 8.63301 1.60176C7.60742 2.62735 7.03125 4.01835 7.03125 5.46875V6.25H1.5625V21.875C1.5625 22.7038 1.89174 23.4987 2.47779 24.0847C3.06384 24.6708 3.8587 25 4.6875 25H20.3125C21.1413 25 21.9362 24.6708 22.5222 24.0847C23.1083 23.4987 23.4375 22.7038 23.4375 21.875V6.25H17.9688ZM3.125 7.8125H21.875V21.875C21.875 22.2894 21.7104 22.6868 21.4174 22.9799C21.1243 23.2729 20.7269 23.4375 20.3125 23.4375H4.6875C4.2731 23.4375 3.87567 23.2729 3.58265 22.9799C3.28962 22.6868 3.125 22.2894 3.125 21.875V7.8125Z" fill="#4D2E7A"/>
-                    </svg>Add to cart</button>
+                <div class="shopcart-wrapper">
+                    <button class="shopcart-btn" onclick="addToCart(); this.onclick=null;"><svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.5 1.5625C13.536 1.5625 14.5296 1.97405 15.2621 2.70661C15.9947 3.43918 16.4062 4.43275 16.4062 5.46875V6.25H8.59375V5.46875C8.59375 4.43275 9.0053 3.43918 9.73786 2.70661C10.4704 1.97405 11.464 1.5625 12.5 1.5625ZM17.9688 6.25V5.46875C17.9688 4.01835 17.3926 2.62735 16.367 1.60176C15.3414 0.57617 13.9504 0 12.5 0C11.0496 0 9.6586 0.57617 8.63301 1.60176C7.60742 2.62735 7.03125 4.01835 7.03125 5.46875V6.25H1.5625V21.875C1.5625 22.7038 1.89174 23.4987 2.47779 24.0847C3.06384 24.6708 3.8587 25 4.6875 25H20.3125C21.1413 25 21.9362 24.6708 22.5222 24.0847C23.1083 23.4987 23.4375 22.7038 23.4375 21.875V6.25H17.9688ZM3.125 7.8125H21.875V21.875C21.875 22.2894 21.7104 22.6868 21.4174 22.9799C21.1243 23.2729 20.7269 23.4375 20.3125 23.4375H4.6875C4.2731 23.4375 3.87567 23.2729 3.58265 22.9799C3.28962 22.6868 3.125 22.2894 3.125 21.875V7.8125Z" fill="#4D2E7A"/>
+                        </svg>Add to cart</button>
+                        <span class="add-cart-msg"> Added! </span>
+                </div>
             </div>
 
         </div>
@@ -341,8 +385,12 @@
     <script>
         checkStock();
         //store php variale in javascript
+        var productID = <?php echo json_encode($product_id, JSON_HEX_TAG); ?>;
         var coloursDetails = <?php echo json_encode($colours, JSON_HEX_TAG); ?>;
+        var detailsID = <?php echo json_encode($id_to_query, JSON_HEX_TAG); ?>;
         console.log(coloursDetails);
+        //numColourIDHtml will hold the id of the colour in html. so it starts from 0, it is used to get the detailsid for the post req
+        var numColourIDHtml = 0;
         //for slideshow
         var slideIndex = 1;
         showSlides(slideIndex);
@@ -395,6 +443,7 @@
             document.getElementsByClassName("colour-circle selected")[0].classList.remove("selected");
             this.classList.add("selected");
             var numColour = Number(this.id[this.id.length-1]);
+            numColourIDHtml = numColour;
             var colourName = document.getElementsByClassName("colour-text")[0];
             colourName.innerHTML = imgColor[numColour];
             var productImg = document.getElementsByClassName("product-img");
@@ -412,6 +461,7 @@
         }
 
         function checkStock(){
+            // this function will disable the qty btn n add to cart btn and display out of stock if stock =0.
             var stock = document.getElementById("increase-qty").dataset.maxqty;
             if(stock == 0) {
                 document.getElementsByClassName("out-of-stock")[0].style.display = "block";
@@ -420,6 +470,7 @@
                     quantityBtn[i].disabled = true;
                 }
                 document.getElementsByClassName("quantity-text")[0].disabled = true;
+                document.getElementsByClassName("shopcart-btn")[0].disabled = true;
             } else {
                 document.getElementsByClassName("out-of-stock")[0].style.display = "none";
                 var quantityBtn = document.getElementsByClassName("quantity-btn");
@@ -427,7 +478,19 @@
                     quantityBtn[i].disabled = false;
                 }
                 document.getElementsByClassName("quantity-text")[0].disabled = false;
+                document.getElementsByClassName("shopcart-btn")[0].disabled = false;
             }
+        }
+
+        function addToCart(){
+            var addCartMsg = document.getElementsByClassName("add-cart-msg")[0];
+            var qty = document.getElementsByClassName("quantity-text")[0].value;
+            addCartMsg.style.display="block";
+            //addCartMsg.classList.add("fade-out");
+            //need pdt_id, colour, qty
+            console.log(detailsID[numColourIDHtml]);
+            console.log(productID);
+            console.log(qty);
         }
 
 
