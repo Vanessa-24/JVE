@@ -1,3 +1,52 @@
+<?php
+    include "dbconnect.php";
+    $product_table_name = "test_product";
+    $product_details_table_name = "test_details";
+    $product_image_table_name = "test_img";
+    session_start();
+    if (!isset($_SESSION['cart'])){
+        $_SESSION['cart'] = array();
+    }  
+    var_dump($_SESSION);
+    $details_id = array();
+    $qty = array();
+    foreach ($_SESSION['cart'] as $key => $value) {
+        array_push($details_id,$key);
+        array_push($qty,$value);
+    }
+    // result details will have the first img, the model name, specs. colours, qty, price
+    $result_details = array();
+    $product_id = array();
+    // get the product_id of the items in the shopcart
+    for ($i=0; $i <count($details_id); $i++) {
+        $query = "SELECT * from " .$product_details_table_name." WHERE details_id=".$details_id[$i];
+        $result = $dbcnx->query($query);
+        $details_result = $result->fetch_assoc();
+        array_push($product_id, $details_result["product_ID"]);
+        $result_details[$i] = array();
+        $result_details[$i]['colour_selected'] = $details_result["colour_code"];
+        $result_details[$i]['stock'] = $details_result["stock"];
+    }
+    // get the product model, details, specs and price of the items in the shopcart
+    for ($i=0; $i <count($product_id); $i++) {
+        $query = "SELECT * from " .$product_table_name." WHERE product_ID=".$product_id[$i];
+        $result = $dbcnx->query($query);
+        $product_result = $result->fetch_assoc();
+        $result_details[$i]['product_model'] = $product_result["product_model"];
+        $result_details[$i]['detail'] = $product_result["detail"];
+        $result_details[$i]['spec'] = $product_result["specification"];
+        $result_details[$i]['price'] = $product_result["price"];
+
+    }
+    echo "<br>";
+    var_dump($result_details);
+
+
+    // var_dump($details_id);
+    // var_dump($qty);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +59,13 @@
     <style>
         table {
             border-collapse: collapse;
+            margin-top: -30px;
         }
         tr{
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid #848484;
+        }
+        tr>td{
+            padding-top: 30px;
         }
         td:first-child{
             width: 10%;
@@ -109,7 +162,7 @@
                     <td class="product-img"><img src="img/test-phone.png" style="width:100%"></td>
                     <td class="product-description">
                         <div>
-                            <div class="phone-model"><strong>Samsung Galaxy A12 number 2</strong></div>
+                            <div class="phone-model"><strong>Samsung Galaxy A12 no.2</strong></div>
                             <div class="specifications">Specifications</div>
                             <div class="colour">Colours: 
                                 <span class="colour-picker-wrapper"> 
