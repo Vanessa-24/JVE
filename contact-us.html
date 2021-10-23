@@ -30,31 +30,48 @@
     <div class="content contact-us">
       <div class="title">Contact Us</div>
       <p>Question not answered yet? We love to help</p>
-      <form action="mail_handler.php" id="contact-form" method="post">
-        <input
-          type="text"
-          id="first-name"
-          name="firstname"
-          placeholder="First Name"
-        />
+      <form
+        action="mail_handler.php"
+        id="contact-form"
+        method="post"
+        onsubmit="checkForm()"
+      >
+        <div>
+          <input
+            type="text"
+            id="first-name"
+            name="firstname"
+            placeholder="First Name"
+            oninput="validateFirstname()"
+          />
+          <div id="errorName" class="error-msg"></div>
+        </div>
         <input
           type="text"
           id="last-name"
           name="lastname"
           placeholder="Last Name"
+          oninput="validateLastname()"
         />
-        <input
-          type="email"
-          id="your-email"
-          name="email"
-          placeholder="Email Address"
-        />
-        <textarea
-          id="your-msg"
-          name="message"
-          rows="10"
-          placeholder="Your Message..."
-        ></textarea>
+        <div id="errorLastname" class="error-msg"></div>
+        <div>
+          <input
+            type="email"
+            id="your-email"
+            name="email"
+            placeholder="Email Address"
+            oninput="validateEmail()"
+          />
+          <div id="errorEmail" class="error-msg"></div>
+        </div>
+        <div>
+          <textarea
+            id="your-msg"
+            name="message"
+            rows="10"
+            placeholder="Your Message..."
+          ></textarea>
+        </div>
 
         <button
           type="submit"
