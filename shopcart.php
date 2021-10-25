@@ -158,7 +158,7 @@
                 <?php 
                     for($i=0; $i<count($result_details);$i++){
                         echo '<tr>';
-                        echo '<td class="product-img"><img src="img/test-phone.png" style="width:100%"></td>';
+                        echo '<td class="product-img"><img src="'.$result_details[$i]["img_link"][0].'" style="width:100%"></td>';
                         echo '<td class="product-description">';
                         echo '<div>';
                         echo '<div class="phone-model"><strong>'.$result_details[$i]["product_model"].'</strong></div>';
@@ -166,7 +166,11 @@
                         echo '<div class="colour">Colours: ';
                         echo '<span class="colour-picker-wrapper">';
                         for($j=0; $j<count($result_details[$i]["colours_code"]);$j++){
-                            echo '<span class="colour-circle selected" style="background-color: '.$result_details[$i]["colours_code"][$j].';"></span>';
+                            if($result_details[$i]["colour_selected"] != $result_details[$i]["colours_code"][$j]){
+                                echo '<span class="colour-circle" style="background-color: '.$result_details[$i]["colours_code"][$j].';"></span>';
+                            } else {
+                                echo '<span class="colour-circle selected" style="background-color: '.$result_details[$i]["colour_selected"].';"></span>';
+                            }
                         }
                         echo '</span>';
                         echo '</div>';
