@@ -295,7 +295,7 @@
                     <?php
                         for ($i=0; $i<count($colours[0][3]); $i++){
                             echo '<div class="mySlides fade">';
-                            echo '<img class="product-img" src='.$colours[0][3][$i].' style="width:100%">';
+                            echo '<img class="product-img" src='.$colours[0][3][$i].' style="width:80%;display:block;margin:auto;">';
                             echo '</div>';
                         }
                     ?>
