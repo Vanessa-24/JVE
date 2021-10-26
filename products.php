@@ -448,11 +448,13 @@
         function changeColour(){
             document.getElementsByClassName("colour-circle selected")[0].classList.remove("selected");
             this.classList.add("selected");
+            //get num colour to know which index to use for imgColor etc
             var numColour = Number(this.id[this.id.length-1]);
             numColourIDHtml = numColour;
             var colourName = document.getElementsByClassName("colour-text")[0];
             colourName.innerHTML = imgColor[numColour];
             var productImg = document.getElementsByClassName("product-img");
+            //set the src link of the image
             for (var i =0; i<productImg.length; i++){
                 productImg[i].src = imgLinkDict[numColour][i];
             }
