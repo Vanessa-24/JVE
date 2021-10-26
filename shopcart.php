@@ -25,7 +25,6 @@
         array_push($product_id, $details_result["product_ID"]);
         $result_details[$i] = array();
         $result_details[$i]['colour_selected'] = $details_result["colour_code"];
-        $result_details[$i]['stock'] = $details_result["stock"];
     }
 
     // get the product model, details, specs and price of the items in the shopcart and also all the colours available where stock > 0
@@ -40,10 +39,12 @@
         $query = "SELECT * from " .$product_details_table_name." WHERE product_ID=".$product_id[$i]. " AND stock>0";
         $result = $dbcnx->query($query);
         $colour_codes = array();
+        $stock_arr = array();
         //details id shopcart will contain the other colours as well bu details_id array only contain the id that the user has chose in the shopcart
         $details_id_shopcart = array();
         for($j=0; $j<$result->num_rows; $j++){
             $details_result = $result->fetch_assoc();
+            array_push($stock_arr,$details_result['stock']);
             array_push($colour_codes, $details_result['colour_code']);
             array_push($details_id_shopcart,$details_result['details_id']);
         }
@@ -57,6 +58,7 @@
         }
         $result_details[$i]['img_link'] = $img_link;
         $result_details[$i]['colours_code'] = $colour_codes;
+        $result_details[$i]['stock'] = $stock_arr;
 
     }
     
@@ -93,12 +95,15 @@
             padding-top: 30px;
         }
         td:first-child{
-            width: 10%;
+            width: 15%;
             padding-bottom: 30px;
         }
         td:nth-child(2){
             vertical-align: top;
             padding-left: 20px;
+            width: 50%;
+            padding-right: 80px;
+            padding-bottom:50px;
         }
         .quantity-btn, .remove button{
             background-color: transparent;
@@ -154,22 +159,23 @@
         </div>
         <hr>
         <div>
-            <table>
+            <table id="shopcart-table">
                 <?php 
                     for($i=0; $i<count($result_details);$i++){
                         echo '<tr>';
-                        echo '<td class="product-img"><img src="'.$result_details[$i]["img_link"][0].'" style="width:100%"></td>';
+                        // show the correct image based on the selected colour
+                        echo '<td><img class="product-img" src="'.$result_details[$i]["img_link"][array_search($result_details[$i]["colour_selected"],$result_details[$i]["colours_code"])].'" style="width:100%"></td>';
                         echo '<td class="product-description">';
                         echo '<div>';
                         echo '<div class="phone-model"><strong>'.$result_details[$i]["product_model"].'</strong></div>';
-                        echo '<div class="specifications">'.$result_details[$i]["spec"].'</div>';
+                        echo '<div class="specifications">'.$result_details[$i]["detail"].'</div>';
                         echo '<div class="colour">Colours: ';
                         echo '<span class="colour-picker-wrapper">';
                         for($j=0; $j<count($result_details[$i]["colours_code"]);$j++){
                             if($result_details[$i]["colour_selected"] != $result_details[$i]["colours_code"][$j]){
-                                echo '<span class="colour-circle" style="background-color: '.$result_details[$i]["colours_code"][$j].';"></span>';
+                                echo '<span class="colour-circle" id="colour-'.$j.'" style="background-color: '.$result_details[$i]["colours_code"][$j].';"></span>';
                             } else {
-                                echo '<span class="colour-circle selected" style="background-color: '.$result_details[$i]["colour_selected"].';"></span>';
+                                echo '<span class="colour-circle selected" id="colour-'.$j.'" style="background-color: '.$result_details[$i]["colour_selected"].';"></span>';
                             }
                         }
                         echo '</span>';
@@ -179,10 +185,10 @@
                         echo '<td class="quantity">';
                         echo '<button class="quantity-btn" onclick="decrease(this)"> - </button>';
                         echo '<input type="text" value="1" class="quantity-text">';
-                        echo '<button class="quantity-btn" data-maxqty= "'.$result_details[$i]['stock'].'" onclick="increase(this)"> + </button>';
+                        echo '<button class="quantity-btn increase-qty" data-maxqty= "'.$result_details[$i]['stock'][array_search($result_details[$i]["colour_selected"],$result_details[$i]["colours_code"])].'" onclick="increase(this)"> + </button>';
                         echo '</td>';
                         echo '<td class="price">';
-                        echo '<strong>'.$result_details[$i]["price"].'</strong>';
+                        echo '<strong>$'.$result_details[$i]["price"].'</strong>';
                         echo '</td>';
                         echo '<td class="remove">';
                         echo '<button onclick="remove()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">';
@@ -192,62 +198,6 @@
                         echo '</tr>';
                     }
                 ?>
-                <tr>
-                    <td class="product-img"><img src="img/test-phone.png" style="width:100%"></td>
-                    <td class="product-description">
-                        <div>
-                            <div class="phone-model"><strong>Samsung Galaxy A12</strong></div>
-                            <div class="specifications">Specifications</div>
-                            <div class="colour">Colours: 
-                                <span class="colour-picker-wrapper"> 
-                                    <span class="colour-circle selected" style="background-color: black;"></span>
-                                    <span class="colour-circle" style="background-color: blue;"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="quantity">
-                        <button class="quantity-btn" onclick="decrease(this)"> - </button>
-                        <input type="text" value="1" class="quantity-text">
-                        <button class="quantity-btn" onclick="increase(this)"> + </button>
-                    </td>
-                    <td class="price">
-                        <strong>$199.90</strong>
-                    </td>
-                    <td class="remove">
-                        <button onclick="remove()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4.5 20.125C4.5 20.6223 4.69754 21.0992 5.04917 21.4508C5.4008 21.8025 5.87772 22 6.375 22H17.625C18.1223 22 18.5992 21.8025 18.9508 21.4508C19.3025 21.0992 19.5 20.6223 19.5 20.125V7H4.5V20.125ZM15.125 10.125C15.125 9.95924 15.1908 9.80027 15.3081 9.68306C15.4253 9.56585 15.5842 9.5 15.75 9.5C15.9158 9.5 16.0747 9.56585 16.1919 9.68306C16.3091 9.80027 16.375 9.95924 16.375 10.125V18.875C16.375 19.0408 16.3091 19.1997 16.1919 19.3169C16.0747 19.4342 15.9158 19.5 15.75 19.5C15.5842 19.5 15.4253 19.4342 15.3081 19.3169C15.1908 19.1997 15.125 19.0408 15.125 18.875V10.125ZM11.375 10.125C11.375 9.95924 11.4408 9.80027 11.5581 9.68306C11.6753 9.56585 11.8342 9.5 12 9.5C12.1658 9.5 12.3247 9.56585 12.4419 9.68306C12.5591 9.80027 12.625 9.95924 12.625 10.125V18.875C12.625 19.0408 12.5591 19.1997 12.4419 19.3169C12.3247 19.4342 12.1658 19.5 12 19.5C11.8342 19.5 11.6753 19.4342 11.5581 19.3169C11.4408 19.1997 11.375 19.0408 11.375 18.875V10.125ZM7.625 10.125C7.625 9.95924 7.69085 9.80027 7.80806 9.68306C7.92527 9.56585 8.08424 9.5 8.25 9.5C8.41576 9.5 8.57473 9.56585 8.69194 9.68306C8.80915 9.80027 8.875 9.95924 8.875 10.125V18.875C8.875 19.0408 8.80915 19.1997 8.69194 19.3169C8.57473 19.4342 8.41576 19.5 8.25 19.5C8.08424 19.5 7.92527 19.4342 7.80806 19.3169C7.69085 19.1997 7.625 19.0408 7.625 18.875V10.125ZM20.125 3.25001H15.4375L15.0703 2.51954C14.9925 2.36337 14.8727 2.23201 14.7243 2.14022C14.576 2.04844 14.4049 1.99988 14.2305 2.00001H9.76562C9.59155 1.99934 9.42081 2.04772 9.27297 2.1396C9.12512 2.23149 9.00615 2.36316 8.92969 2.51954L8.5625 3.25001H3.875C3.70924 3.25001 3.55027 3.31585 3.43306 3.43306C3.31585 3.55027 3.25 3.70925 3.25 3.87501V5.12501C3.25 5.29077 3.31585 5.44974 3.43306 5.56695C3.55027 5.68416 3.70924 5.75001 3.875 5.75001H20.125C20.2908 5.75001 20.4497 5.68416 20.5669 5.56695C20.6841 5.44974 20.75 5.29077 20.75 5.12501V3.87501C20.75 3.70925 20.6841 3.55027 20.5669 3.43306C20.4497 3.31585 20.2908 3.25001 20.125 3.25001Z" fill="black"/>
-                            </svg></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="product-img"><img src="img/test-phone.png" style="width:100%"></td>
-                    <td class="product-description">
-                        <div>
-                            <div class="phone-model"><strong>Samsung Galaxy A12 no.2</strong></div>
-                            <div class="specifications">Specifications</div>
-                            <div class="colour">Colours: 
-                                <span class="colour-picker-wrapper"> 
-                                    <span class="colour-circle selected" style="background-color: black;"></span>
-                                    <span class="colour-circle" style="background-color: blue;"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="quantity">
-                        <button class="quantity-btn" onclick="decrease(this)"> - </button>
-                        <input type="text" value="1" class="quantity-text">
-                        <button class="quantity-btn" onclick="increase(this)"> + </button>
-                    </td>
-                    <td class="price">
-                        <strong>$199.90</strong>
-                    </td>
-                    <td class="remove">
-                        <button onclick="remove()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4.5 20.125C4.5 20.6223 4.69754 21.0992 5.04917 21.4508C5.4008 21.8025 5.87772 22 6.375 22H17.625C18.1223 22 18.5992 21.8025 18.9508 21.4508C19.3025 21.0992 19.5 20.6223 19.5 20.125V7H4.5V20.125ZM15.125 10.125C15.125 9.95924 15.1908 9.80027 15.3081 9.68306C15.4253 9.56585 15.5842 9.5 15.75 9.5C15.9158 9.5 16.0747 9.56585 16.1919 9.68306C16.3091 9.80027 16.375 9.95924 16.375 10.125V18.875C16.375 19.0408 16.3091 19.1997 16.1919 19.3169C16.0747 19.4342 15.9158 19.5 15.75 19.5C15.5842 19.5 15.4253 19.4342 15.3081 19.3169C15.1908 19.1997 15.125 19.0408 15.125 18.875V10.125ZM11.375 10.125C11.375 9.95924 11.4408 9.80027 11.5581 9.68306C11.6753 9.56585 11.8342 9.5 12 9.5C12.1658 9.5 12.3247 9.56585 12.4419 9.68306C12.5591 9.80027 12.625 9.95924 12.625 10.125V18.875C12.625 19.0408 12.5591 19.1997 12.4419 19.3169C12.3247 19.4342 12.1658 19.5 12 19.5C11.8342 19.5 11.6753 19.4342 11.5581 19.3169C11.4408 19.1997 11.375 19.0408 11.375 18.875V10.125ZM7.625 10.125C7.625 9.95924 7.69085 9.80027 7.80806 9.68306C7.92527 9.56585 8.08424 9.5 8.25 9.5C8.41576 9.5 8.57473 9.56585 8.69194 9.68306C8.80915 9.80027 8.875 9.95924 8.875 10.125V18.875C8.875 19.0408 8.80915 19.1997 8.69194 19.3169C8.57473 19.4342 8.41576 19.5 8.25 19.5C8.08424 19.5 7.92527 19.4342 7.80806 19.3169C7.69085 19.1997 7.625 19.0408 7.625 18.875V10.125ZM20.125 3.25001H15.4375L15.0703 2.51954C14.9925 2.36337 14.8727 2.23201 14.7243 2.14022C14.576 2.04844 14.4049 1.99988 14.2305 2.00001H9.76562C9.59155 1.99934 9.42081 2.04772 9.27297 2.1396C9.12512 2.23149 9.00615 2.36316 8.92969 2.51954L8.5625 3.25001H3.875C3.70924 3.25001 3.55027 3.31585 3.43306 3.43306C3.31585 3.55027 3.25 3.70925 3.25 3.87501V5.12501C3.25 5.29077 3.31585 5.44974 3.43306 5.56695C3.55027 5.68416 3.70924 5.75001 3.875 5.75001H20.125C20.2908 5.75001 20.4497 5.68416 20.5669 5.56695C20.6841 5.44974 20.75 5.29077 20.75 5.12501V3.87501C20.75 3.70925 20.6841 3.55027 20.5669 3.43306C20.4497 3.31585 20.2908 3.25001 20.125 3.25001Z" fill="black"/>
-                            </svg></button>
-                    </td>
-                </tr>
               </table>
         </div>
         
@@ -283,6 +233,7 @@
         var acc = document.getElementsByClassName("accordion");
         var i;
         var panelHeight = 120;
+        var resultDetails = <?php echo json_encode($result_details, JSON_HEX_TAG); ?>;
 
         for (i = 0; i < acc.length; i++) {
             acc[i].addEventListener("click", function() {
@@ -306,9 +257,21 @@
         }
         // toggle the selected style on the colour
         function changeColour(){
-            console.log(this.parentNode);
             this.parentNode.getElementsByClassName("colour-circle selected")[0].classList.remove("selected");
             this.classList.add("selected");
+            var numColour = Number(this.id[this.id.length-1]);
+            //get the tr of interest
+            var thisTRElement  = this.closest("tr");
+            var productImg = thisTRElement.getElementsByClassName("product-img");
+            // set the new img link that correspond to the colour chosen
+            productImg[0].src = resultDetails[thisTRElement.rowIndex]["img_link"][numColour];
+            //set the stock amount for the colour chosen
+            var qty_node = thisTRElement.getElementsByClassName("increase-qty")[0];
+            qty_node.setAttribute("data-maxqty", resultDetails[thisTRElement.rowIndex]['stock'][numColour]);
+            var qty_text = thisTRElement.getElementsByClassName("quantity-text")[0];
+            // //reset qty to 1
+            qty_text.value = 1;
+
         }
 
         // remove the whole <tr> of the row where the bin button is clicked.
