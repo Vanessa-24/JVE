@@ -60,43 +60,12 @@
 }
 
 /*  Needed for filters */
-
 .hide {
-  /* You can play with the seconds to change the "animation" */
-  /* animation: hide 0.5s ease 0s 1 normal forwards;
-  transform-origin: center; */
   display: none;
 }
 .show {
-  /* You can play with the seconds to change the "animation" */
-  /* animation: show 0.5s ease 0s 1 normal forwards;
-  transform-origin: center; */
   display: block;
 }
-
-/* @keyframes hide {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-    width: 0;
-    height: 0;
-    margin: 0;
-  }
-}
-@keyframes show {
-  0% {
-    transform: scale(0);
-    width: 0;
-    height: 0;
-    margin: 0;
-  }
-  100% {
-    transform: scale(1);
-  }
-} */
-/*  // Needed for filters */
 
 /* Grid Row */
 .container {
