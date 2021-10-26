@@ -234,7 +234,7 @@
         var i;
         var panelHeight = 120;
         var resultDetails = <?php echo json_encode($result_details, JSON_HEX_TAG); ?>;
-
+        var cartDetailsId = <?php echo json_encode($details_id, JSON_HEX_TAG); ?>;
         for (i = 0; i < acc.length; i++) {
             acc[i].addEventListener("click", function() {
                 /* Toggle between adding and removing the "active" class,
@@ -277,6 +277,21 @@
         // remove the whole <tr> of the row where the bin button is clicked.
         function remove(){
             var rowRemove = event.srcElement.closest("tr");
+            console.log(rowRemove.rowIndex);
+            console.log(cartDetailsId)
+            console.log(cartDetailsId[rowRemove.rowIndex]);
+            //send req to php to remove the id from $_SESSION['cart']
+            var params = "remove_detailsID="+cartDetailsId[rowRemove.rowIndex];
+            var req = new XMLHttpRequest();
+            req.onreadystatechange = function() { //Call a function when the state changes.
+                if(this.readyState === XMLHttpRequest.DONE && this.status === 200) { // complete and no errors
+                    // Request finished. Do processing here.
+                }
+            };
+            req.open("POST", 'shopcarthandler.php',true);
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            req.send(params);
+            cartDetailsId.splice(rowRemove.rowIndex, 1);
             rowRemove.remove();
         }
       </script>

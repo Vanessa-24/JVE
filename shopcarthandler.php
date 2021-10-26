@@ -9,7 +9,13 @@
     //details id is used cus in case the user wanna add to shopcart again or smth so the value of qty will be over written
     // $temp_var["product_id"] = $_POST['product_id'];
     // $temp_var["qty"] = $_POST['qty'];
-    $_SESSION['cart'][$_POST['details_id']] = $_POST['qty'];
+    if(isset($_POST['details_id'])){
+        //for adding products into shopcart
+        $_SESSION['cart'][$_POST['details_id']] = $_POST['qty'];
+    } else if(isset($_POST['remove_detailsID'])){
+        //for removing items in shopcart
+        unset($_SESSION['cart'][$_POST['remove_detailsID']]);
+    }
 
     exit();
 ?>
