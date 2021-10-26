@@ -1,6 +1,12 @@
 /* FONT SETTINGS */
 @font-face {
   font-family: Roboto;
+  src: url(../fonts/Roboto/Roboto-Light.ttf);
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: Roboto;
   src: url(../fonts/Roboto/Roboto-Regular.ttf);
   font-weight: 400;
 }
