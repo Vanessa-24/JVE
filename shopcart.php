@@ -7,7 +7,7 @@
     if (!isset($_SESSION['cart'])){
         $_SESSION['cart'] = array();
     }  
-    var_dump($_SESSION);
+    //var_dump($_SESSION);
     $details_id = array();
     $qty = array();
     foreach ($_SESSION['cart'] as $key => $value) {
@@ -63,10 +63,10 @@
     }
     
     
-    echo "<br>";
-    var_dump($details_id_shopcart);
-    echo "<br>";
-    var_dump($result_details);
+    //echo "<br>";
+    //var_dump($details_id_shopcart);
+    //echo "<br>";
+    //var_dump($result_details);
 
 
     // var_dump($details_id);
@@ -132,6 +132,7 @@
         .phone-model{
             font-size:1.2rem;
             padding-bottom: 10px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -167,7 +168,7 @@
                         echo '<td><img class="product-img" src="'.$result_details[$i]["img_link"][array_search($result_details[$i]["colour_selected"],$result_details[$i]["colours_code"])].'" style="width:100%"></td>';
                         echo '<td class="product-description">';
                         echo '<div>';
-                        echo '<div class="phone-model"><strong>'.$result_details[$i]["product_model"].'</strong></div>';
+                        echo '<div class="phone-model">'.$result_details[$i]["product_model"].'</div>';
                         echo '<div class="specifications">'.$result_details[$i]["detail"].'</div>';
                         echo '<div class="colour">Colours: ';
                         echo '<span class="colour-picker-wrapper">';
@@ -257,11 +258,26 @@
         }
         // toggle the selected style on the colour
         function changeColour(){
+            //check if the colour selected already has a row by itself, if it does, dont change the colour since it is already there.
+            var thisTRElement  = this.closest("tr");
+            var this_selected_colour = this.style.backgroundColor;
+            console.log(this.style.backgroundColor)
+            var this_phonemodel = thisTRElement.getElementsByClassName("phone-model")[0].innerHTML;
+            var phonemodel = document.getElementsByClassName("phone-model");
+            for (i = 0; i < phonemodel.length; i++) {
+                //if it is the same product, check if the colour is the same
+                if(this_phonemodel == phonemodel[i].innerHTML){
+                    if(this_selected_colour == phonemodel[i].parentNode.getElementsByClassName("colour-circle selected")[0].style.backgroundColor){
+                        alert("The selected colour already exist in the shopcart!")
+                        return
+                    }
+                }
+            }
+            //let the colour be selected, change the pic and the max-qty
             this.parentNode.getElementsByClassName("colour-circle selected")[0].classList.remove("selected");
             this.classList.add("selected");
             var numColour = Number(this.id[this.id.length-1]);
             //get the tr of interest
-            var thisTRElement  = this.closest("tr");
             var productImg = thisTRElement.getElementsByClassName("product-img");
             // set the new img link that correspond to the colour chosen
             productImg[0].src = resultDetails[thisTRElement.rowIndex]["img_link"][numColour];
@@ -277,9 +293,9 @@
         // remove the whole <tr> of the row where the bin button is clicked.
         function remove(){
             var rowRemove = event.srcElement.closest("tr");
-            console.log(rowRemove.rowIndex);
-            console.log(cartDetailsId)
-            console.log(cartDetailsId[rowRemove.rowIndex]);
+            // console.log(rowRemove.rowIndex);
+            // console.log(cartDetailsId)
+            // console.log(cartDetailsId[rowRemove.rowIndex]);
             //send req to php to remove the id from $_SESSION['cart']
             var params = "remove_detailsID="+cartDetailsId[rowRemove.rowIndex];
             var req = new XMLHttpRequest();
@@ -294,6 +310,8 @@
             cartDetailsId.splice(rowRemove.rowIndex, 1);
             rowRemove.remove();
         }
+    
+
       </script>
     
 </body>
