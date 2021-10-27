@@ -1,0 +1,25 @@
+/****** General Styling ******/
+.content {
+  font-size: 1.1rem;
+}
+
+p {
+  margin: 0;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+.row {
+  display: grid;
+}
+
+.checkout-details.row {
+  grid-template-columns: 55% 45%;
+}
+
+.note,
+form span {
+  color: #e50000;
+}

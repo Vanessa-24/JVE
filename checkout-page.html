@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/jve.css" />
+    <link rel="stylesheet" href="css/checkout.css" />
+    <title>Checkout</title>
+  </head>
+  <body>
+    <header class="header">
+      <nav>
+        <a href="./">
+          <img class="jve-logo" alt="JVE Logo" src="img/JVE-logo.png" />
+        </a>
+        <div class="header-products">
+          <a href="product_catalogue.php?category=Smartphones">Smartphones</a>
+          <a href="product_catalogue.php?category=Laptops">Laptops</a>
+          <a href="product_catalogue.php?category=Desktops">Desktops</a>
+          <a href="product_catalogue.php?category=Watches">Watches</a>
+          <a href="product_catalogue.php?category=Earbuds">Earbuds</a>
+        </div>
+        <a href="">
+          <img alt="shopcart" src="img/bag_icon.svg" />
+        </a>
+      </nav>
+    </header>
+    <div class="content">
+      <div class="title">Checkout</div>
+      <hr />
+      <div class="checkout-details row">
+        <div class="cust-details">
+          <p class="note">*Required fields</p>
+          <h4>Personal Details</h4>
+          <form
+            action="order_handler.php"
+            id="customer-form"
+            method="post"
+            onsubmit="checkForm()"
+          >
+            <div>
+              <p>Name<span>*</span>:</p>
+              <input
+                type="text"
+                id="first-name"
+                name="firstname"
+                placeholder="First Name"
+                required
+              />
+              <input
+                type="text"
+                id="last-name"
+                name="lastname"
+                placeholder="Last Name"
+                required
+              />
+            </div>
+            <div>
+              <p>Email<span>*</span>:</p>
+              <input
+                type="email"
+                id="your-email"
+                name="email"
+                placeholder="Email Address"
+                required
+              />
+            </div>
+            <div>
+              <p>Phone number:</p>
+              <input
+                type="text"
+                id="your-number"
+                name="phone-no"
+                placeholder="Phone number"
+              />
+            </div>
+            <div>
+              <p>Address<span>*</span>:</p>
+              <input
+                type="text"
+                id="your-address"
+                name="address"
+                placeholder="Address"
+              />
+            </div>
+            <div>
+              <h4>Payment:</h4>
+            </div>
+            <div>
+              <p>Card Number<span>*</span>:</p>
+              <input
+                type="text"
+                id="your-card-no"
+                name="card-no"
+                placeholder="Card Number"
+              />
+              <p>CVV<span>*</span>:</p>
+              <input
+                type="text"
+                id="your-cvv"
+                name="cvv-no"
+                placeholder="CVV"
+              />
+            </div>
+
+            <button
+              type="submit"
+              form="customer-form"
+              name="submit"
+              value="Submit"
+              class="btn submit-btn"
+            >
+              Submit
+            </button>
+            <button
+              type="reset"
+              name="clear"
+              value="Clear"
+              class="btn clear-btn"
+            >
+              Clear
+            </button>
+          </form>
+        </div>
+        <div class="order-summary">
+          <h4>Order Summary</h4>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-wrapper">
+        <ul>
+          <li class="footer-heading">Shop</li>
+          <li>
+            <a href="product_catalogue.php?category=Smartphones">Smartphones</a>
+          </li>
+          <li><a href="product_catalogue.php?category=Laptops">Laptops</a></li>
+          <li>
+            <a href="product_catalogue.php?category=Desktops">Desktops</a>
+          </li>
+          <li><a href="product_catalogue.php?category=Watches">Watches</a></li>
+          <li><a href="product_catalogue.php?category=Earbuds">Earbuds</a></li>
+        </ul>
+        <ul>
+          <li class="footer-heading">Support</li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+          <li><a href="faq.html">FAQs</a></li>
+        </ul>
+        <ul>
+          <li class="footer-heading">JVE</li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="stores.html">Stores</a></li>
+        </ul>
+        <div class="break"></div>
+        <div class="copyright">
+          Copyright © 2021 JVE Pte Ltd. All rights reserved
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
