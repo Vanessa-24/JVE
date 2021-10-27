@@ -1,18 +1,32 @@
+// Default product count
+var numDisplayedproducts = document.querySelectorAll(".grid-item").length;
+var productCount = document.querySelector(".product-count");
+productCount.innerHTML = numDisplayedproducts + " products";
+
+//  Filter JS
 var filters = document.querySelectorAll(".filter");
 
 filters.forEach((filter) => {
   filter.addEventListener("click", function () {
     let selectedFilter = filter.getAttribute("data-filter");
     let itemsToHide = document.querySelectorAll(
-      `.products .product:not([data-filter='${selectedFilter}'])`
+      `.container .grid-item:not([data-filter='${selectedFilter}'])`
     );
     let itemsToShow = document.querySelectorAll(
-      `.products [data-filter='${selectedFilter}']`
+      `.container [data-filter='${selectedFilter}']`
     );
+
+    // Product count for filtered products
+    numDisplayedproducts = itemsToShow.length;
+    productCount.innerHTML = numDisplayedproducts + " products";
 
     if (selectedFilter == "all") {
       itemsToHide = [];
-      itemsToShow = document.querySelectorAll(".products [data-filter]");
+      itemsToShow = document.querySelectorAll(".container [data-filter]");
+
+      // Product count for all products
+      numDisplayedproducts = itemsToShow.length;
+      productCount.innerHTML = numDisplayedproducts + " products";
     }
 
     itemsToHide.forEach((el) => {
