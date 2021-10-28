@@ -39,24 +39,30 @@
             method="post"
             onsubmit="checkForm()"
           >
-            <div>
-              <p>Name<span>*</span>:</p>
-              <input
-                type="text"
-                id="first-name"
-                name="firstname"
-                placeholder="First Name"
-                required
-              />
-              <input
-                type="text"
-                id="last-name"
-                name="lastname"
-                placeholder="Last Name"
-                required
-              />
+            <!-- Name -->
+            <p>Name<span>*</span>:</p>
+            <div class="flex-row">
+              <div class="col first-name flex-row">
+                <input
+                  type="text"
+                  id="first-name"
+                  name="firstname"
+                  placeholder="First Name"
+                  required
+                />
+              </div>
+              <div class="col last-name flex-row">
+                <input
+                  type="text"
+                  id="last-name"
+                  name="lastname"
+                  placeholder="Last Name"
+                  required
+                />
+              </div>
             </div>
-            <div>
+            <!-- Email address -->
+            <div id="email-add">
               <p>Email<span>*</span>:</p>
               <input
                 type="email"
@@ -66,7 +72,8 @@
                 required
               />
             </div>
-            <div>
+            <!-- Phone number -->
+            <div id="#phone-num">
               <p>Phone number:</p>
               <input
                 type="text"
@@ -75,8 +82,9 @@
                 placeholder="Phone number"
               />
             </div>
-            <div>
-              <p>Address<span>*</span>:</p>
+            <!-- Address -->
+            <p>Address<span>*</span>:</p>
+            <div id="address" class="flex-row">
               <input
                 type="text"
                 id="your-address"
@@ -84,43 +92,56 @@
                 placeholder="Address"
               />
             </div>
+            <!-- Payment -->
             <div>
               <h4>Payment:</h4>
+              <img
+                id="payment-img"
+                src="img/credit-payment.png"
+                alt="Modes of credit payment"
+              />
             </div>
-            <div>
-              <p>Card Number<span>*</span>:</p>
-              <input
-                type="text"
-                id="your-card-no"
-                name="card-no"
-                placeholder="Card Number"
-              />
-              <p>CVV<span>*</span>:</p>
-              <input
-                type="text"
-                id="your-cvv"
-                name="cvv-no"
-                placeholder="CVV"
-              />
+            <!-- Card details input -->
+            <div class="flex-row">
+              <div class="col card-input">
+                <p>Card Number<span>*</span>:</p>
+                <input
+                  type="text"
+                  id="your-card-no"
+                  name="card-no"
+                  placeholder="Card Number"
+                />
+              </div>
+              <div class="col cvv-input">
+                <p>CVV<span>*</span>:</p>
+                <input
+                  type="text"
+                  id="your-cvv"
+                  name="cvv-no"
+                  placeholder="CVV"
+                />
+              </div>
             </div>
 
-            <button
-              type="submit"
-              form="customer-form"
-              name="submit"
-              value="Submit"
-              class="btn submit-btn"
-            >
-              Submit
-            </button>
-            <button
-              type="reset"
-              name="clear"
-              value="Clear"
-              class="btn clear-btn"
-            >
-              Clear
-            </button>
+            <div class="buttons-row flex-row">
+              <button
+                type="submit"
+                form="customer-form"
+                name="submit"
+                value="Submit"
+                class="btn submit-btn"
+              >
+                Submit
+              </button>
+              <button
+                type="reset"
+                name="clear"
+                value="Clear"
+                class="btn clear-btn"
+              >
+                Clear
+              </button>
+            </div>
           </form>
         </div>
         <div class="order-summary">

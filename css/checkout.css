@@ -23,3 +23,104 @@ h4 {
 form span {
   color: #e50000;
 }
+
+/***** Form styling ******/
+form {
+  width: 600px;
+}
+
+.checkout-details input {
+  padding: 0.65rem 0.7rem;
+  border: 1px solid #848383;
+  margin-bottom: 2rem;
+  font-size: 1.12rem;
+}
+
+::placeholder {
+  color: #ababab;
+}
+
+/* Labels */
+.checkout-details p {
+  padding-bottom: 0.7rem;
+}
+
+.flex-row {
+  display: flex;
+}
+
+.col.first-name {
+  flex: 55%;
+}
+
+.col.last-name {
+  flex: 45%;
+  margin-left: 5rem;
+}
+
+input#your-email {
+  width: 300px;
+}
+
+input#your-number {
+  width: 250px;
+}
+
+input#your-address,
+input#first-name,
+input#last-name {
+  flex: 2;
+}
+
+#payment-img {
+  padding: 0 1.5rem 2rem 1.5rem;
+}
+
+input#your-card-no {
+  width: 80%;
+}
+
+.col.card-input {
+  flex: 70%;
+}
+
+.col.cvv-input {
+  flex: 30%;
+}
+
+/* Button stylings */
+.buttons-row {
+  margin-top: 2rem;
+}
+
+.btn {
+  padding: 15px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.25rem;
+  background: #fff;
+}
+
+.submit-btn {
+  border: 2px solid #4d2e7a;
+  color: #4d2e7a;
+  flex: 70%;
+}
+
+.submit-btn:hover {
+  color: white;
+  background-color: #4d2e7a;
+}
+
+.clear-btn {
+  border: 2px solid #9c4040;
+  color: #9c4040;
+  flex: 30%;
+  margin-left: 2rem;
+}
+
+.clear-btn:hover {
+  color: white;
+  background-color: #9c4040;
+}
