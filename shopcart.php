@@ -84,6 +84,11 @@
     <link rel="stylesheet" href="css/product_shopcart.css">
     <title>ShopCart</title>
     <style>
+        .empty{
+            text-align: center;
+            padding-top:80px;
+            font-size:1.2rem;
+        }
         table {
             border-collapse: collapse;
             margin-top: -30px;
@@ -140,17 +145,17 @@
     <header class="header">
         <nav>
             <a href="./">
-                <img class="jve-logo" alt="JVE Logo" src="img/JVE-logo.png">
+            <img class="jve-logo" alt="JVE Logo" src="img/JVE-logo.png" />
             </a>
             <div class="header-products">
-                <a href="">Smartphones</a>
-                <a href="">Laptops</a>
-                <a href="">Desktops</a>
-                <a href="">Watches</a>
-                <a href="">Earbuds</a>
+            <a href="product_catalogue.php?category=Smartphones">Smartphones</a>
+            <a href="product_catalogue.php?category=Laptops">Laptops</a>
+            <a href="product_catalogue.php?category=Desktops">Desktops</a>
+            <a href="product_catalogue.php?category=Watches">Watches</a>
+            <a href="product_catalogue.php?category=Earbuds">Earbuds</a>
             </div>
-            <a href="">
-                <img alt="shopcart" src="img/bag_icon.svg">
+            <a href="shopcart.php">
+            <img alt="shopcart" src="img/bag_icon.svg" />
             </a>
         </nav>
     </header>
@@ -159,6 +164,11 @@
             Your Cart
         </div>
         <hr>
+        <?php 
+            if(count($_SESSION['cart']) ==0) {
+                echo '<div class="empty"> You have not added anything to your cart. </div>';
+            } 
+        ?>
         <div>
             <table id="shopcart-table">
                 <?php 

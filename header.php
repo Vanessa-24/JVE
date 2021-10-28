@@ -10,7 +10,7 @@
           <a href="product_catalogue.php?category=Watches">Watches</a>
           <a href="product_catalogue.php?category=Earbuds">Earbuds</a>
         </div>
-        <a href="">
+        <a href="shopcart.php">
           <img alt="shopcart" src="img/bag_icon.svg" />
         </a>
       </nav>
