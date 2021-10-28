@@ -58,7 +58,7 @@
 
     $result->free();
     $dbcnx->close();
-    var_dump($_SESSION);
+    //var_dump($_SESSION);
     // // remove all session variables
     // session_unset(); 
 
