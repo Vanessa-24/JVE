@@ -7,6 +7,7 @@
     display: inline-block;
     position: relative;
     margin-right: 8px;
+    border: 1px solid black;
 
 }
 .colour-circle.selected:after{
@@ -18,7 +19,6 @@
     left: -5px;
     bottom: -5px;
     right: -5px;
-    margin: 1px;
 }
 .shopcart-btn{
     background-color: transparent;
