@@ -16,7 +16,7 @@ h4 {
 }
 
 .checkout-details.row {
-  grid-template-columns: 55% 45%;
+  grid-template-columns: 60% 40%;
 }
 
 .note,
@@ -24,7 +24,14 @@ form span {
   color: #e50000;
 }
 
-/***** Form styling ******/
+/***** Customer Details ******/
+/* Added border line on the right */
+.cust-details {
+  border-right: 1px solid #848484;
+  margin-right: 2rem;
+}
+
+/* Form styling */
 form {
   width: 600px;
 }
@@ -123,4 +130,48 @@ input#your-card-no {
 .clear-btn:hover {
   color: white;
   background-color: #9c4040;
+}
+
+/***** Order Summary *****/
+.order-summary .row {
+  grid-template-columns: 35% 45% 20%;
+  justify-items: end;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #848484;
+}
+
+.total.row {
+  padding: 0;
+  border: none;
+}
+
+.order-summary h4.order-label {
+  border-bottom: 1px solid #848484;
+  padding-bottom: 1.4rem;
+  margin: 0;
+}
+
+.product-img img {
+  max-width: 100%;
+}
+
+.product-details {
+  width: 90%;
+}
+
+.product-details .model {
+  font-weight: bold;
+}
+
+.colour {
+  padding-top: 1rem;
+}
+
+.colour-wrapper {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-left: 8px;
+  vertical-align: top;
 }
