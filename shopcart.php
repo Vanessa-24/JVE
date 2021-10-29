@@ -228,31 +228,35 @@
                 ?>
               </table>
         </div>
-
+                    
         <div class="summary">
-            <table id="summary-table">
-                <caption>Summary</caption>
-                <tr>
-                    <td> Subtotal: </td>
-                    <td id="subtotal"> $1230. 00</td>
-                </tr>
-                <tr>
-                    <td> GST: </td>
-                    <td id="gst"> $1230. 00</td>
-                </tr>
-                <tr>
-                    <td> Shipping fees: </td>
-                    <td id="shipping-fees"> $1230. 00</td>
-                </tr>
-                <tr>
-                    <td> Total: </td>
-                    <td id="total"> $1230. 00</td>
-                </tr>
-                
-            </table>
-            <div class="shopcart-btn">
-                Checkout
-            </div> 
+        <?php 
+            if(count($result_details)>0){
+
+                echo '<table id="summary-table">';
+                echo '<caption>Summary</caption>';
+                echo '<tr>';
+                echo '<td> Subtotal: </td>';
+                echo '<td id="subtotal"></td>';
+                echo '</tr>';
+                echo '<tr>';
+                echo '<td> GST: </td>';
+                echo '<td id="gst"></td>';
+                echo '</tr>';
+                echo '<tr>';
+                echo '<td> Shipping fees: </td>';
+                echo '<td id="shipping-fees"></td>';
+                echo '</tr>';
+                echo '<tr>';
+                echo '<td> Total: </td>';
+                echo '<td id="total"></td>';
+                echo '</tr>';
+                echo '</table>';
+                echo '<div class="shopcart-btn">';
+                echo 'Checkout';
+                echo '</div>';
+            }
+        ?> 
         </div>
         
     </div>
