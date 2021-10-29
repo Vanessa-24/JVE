@@ -9,23 +9,9 @@
     <title>Checkout</title>
   </head>
   <body>
-    <header class="header">
-      <nav>
-        <a href="./">
-          <img class="jve-logo" alt="JVE Logo" src="img/JVE-logo.png" />
-        </a>
-        <div class="header-products">
-          <a href="product_catalogue.php?category=Smartphones">Smartphones</a>
-          <a href="product_catalogue.php?category=Laptops">Laptops</a>
-          <a href="product_catalogue.php?category=Desktops">Desktops</a>
-          <a href="product_catalogue.php?category=Watches">Watches</a>
-          <a href="product_catalogue.php?category=Earbuds">Earbuds</a>
-        </div>
-        <a href="">
-          <img alt="shopcart" src="img/bag_icon.svg" />
-        </a>
-      </nav>
-    </header>
+    <?php
+    include ('header.php');
+    ?>
     <div class="content">
       <div class="title">Checkout</div>
       <hr />
@@ -91,6 +77,7 @@
                 id="your-address"
                 name="address"
                 placeholder="Address"
+                required
               />
             </div>
             <!-- Payment -->
@@ -111,6 +98,7 @@
                   id="your-card-no"
                   name="card-no"
                   placeholder="Card Number"
+                  required
                 />
               </div>
               <div class="col cvv-input">
@@ -120,20 +108,22 @@
                   id="your-cvv"
                   name="cvv-no"
                   placeholder="CVV"
+                  required
                 />
               </div>
             </div>
 
             <div class="buttons-row flex-row">
-              <button
-                type="submit"
-                form="customer-form"
-                name="submit"
-                value="Submit"
-                class="btn submit-btn"
-              >
-                Submit
-              </button>
+                <button
+                  type="submit"
+                  form="customer-form"
+                  name="submit"
+                  value="submit"
+                  class="btn submit-btn"
+                  onclick="window.location.href = 'invoice.html';"
+                >
+                  Submit
+                </button>
               <button
                 type="reset"
                 name="clear"
@@ -201,35 +191,8 @@
         </div>
       </div>
     </div>
-    <footer>
-      <div class="footer-wrapper">
-        <ul>
-          <li class="footer-heading">Shop</li>
-          <li>
-            <a href="product_catalogue.php?category=Smartphones">Smartphones</a>
-          </li>
-          <li><a href="product_catalogue.php?category=Laptops">Laptops</a></li>
-          <li>
-            <a href="product_catalogue.php?category=Desktops">Desktops</a>
-          </li>
-          <li><a href="product_catalogue.php?category=Watches">Watches</a></li>
-          <li><a href="product_catalogue.php?category=Earbuds">Earbuds</a></li>
-        </ul>
-        <ul>
-          <li class="footer-heading">Support</li>
-          <li><a href="contact-us.html">Contact Us</a></li>
-          <li><a href="faq.html">FAQs</a></li>
-        </ul>
-        <ul>
-          <li class="footer-heading">JVE</li>
-          <li><a href="aboutus.html">About Us</a></li>
-          <li><a href="stores.html">Stores</a></li>
-        </ul>
-        <div class="break"></div>
-        <div class="copyright">
-          Copyright © 2021 JVE Pte Ltd. All rights reserved
-        </div>
-      </div>
-    </footer>
+    <?php
+    include ('footer.php');
+    ?>
   </body>
 </html>
