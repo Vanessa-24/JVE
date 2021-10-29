@@ -139,6 +139,9 @@
             padding-bottom: 10px;
             font-weight: bold;
         }
+        .price{
+            font-weight:bold;
+        }
     </style>
 </head>
 <body>
@@ -194,12 +197,12 @@
                         echo '</div>';
                         echo '</td>';
                         echo '<td class="quantity">';
-                        echo '<button class="quantity-btn" onclick="decrease(this)"> - </button>';
+                        echo '<button class="quantity-btn" onclick="decrease(this);updatePrice(this);"> - </button>';
                         echo '<input type="text" value="1" class="quantity-text">';
-                        echo '<button class="quantity-btn increase-qty" data-maxqty= "'.$result_details[$i]['stock'][array_search($result_details[$i]["colour_selected"],$result_details[$i]["colours_code"])].'" onclick="increase(this)"> + </button>';
+                        echo '<button class="quantity-btn increase-qty" data-maxqty= "'.$result_details[$i]['stock'][array_search($result_details[$i]["colour_selected"],$result_details[$i]["colours_code"])].'" onclick="increase(this);updatePrice(this);"> + </button>';
                         echo '</td>';
                         echo '<td class="price">';
-                        echo '<strong>$'.$result_details[$i]["price"].'</strong>';
+                        echo '$'.$result_details[$i]["price"];
                         echo '</td>';
                         echo '<td class="remove">';
                         echo '<button onclick="remove()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">';
@@ -319,6 +322,15 @@
             req.send(params);
             cartDetailsId.splice(rowRemove.rowIndex, 1);
             rowRemove.remove();
+        }
+
+        function updatePrice(el){
+            var thisTRElement  = el.closest("tr");
+            var price = thisTRElement.getElementsByClassName("price")[0];
+            var qtyText = thisTRElement.getElementsByClassName("quantity-text")[0];
+            var qty = qtyText.value; 
+            var newPrice = Number(qty) * resultDetails[thisTRElement.rowIndex]["price"];
+            price.innerHTML = "$" + newPrice.toFixed(2);
         }
     
 
