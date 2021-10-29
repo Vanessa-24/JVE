@@ -18,7 +18,7 @@
           <h1>Smartphones</h1>
           <h3>Experience the world from your fingertips</h3>
           <p>From S$1,149</p>
-          <a href="smartphones.html" class="purple-btn"
+          <a href="product_catalogue.php?category=Smartphones" class="purple-btn"
             >Learn More
             <span class="icon">
             <svg width="18" height="20" viewBox="0 0 18 20" fill="#none" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +41,7 @@
           <h1>Laptops</h1>
           <h3>Anywhere, Anytime</h3>
           <p>From S$499</p>
-          <a href="laptops.html" class="purple-btn"></button>
+          <a href="product_catalogue.php?category=Laptops" class="purple-btn"></button>
             Learn More
             <span class="icon">
             <svg width="18" height="20" viewBox="0 0 18 20" fill="#none" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +58,7 @@
           <h1>Desktops</h1>
           <h3>Made of the highest quality</h3>
           <p>From S$1,786</p>
-          <a href="desktops.html" class="purple-btn"
+          <a href="product_catalogue.php?category=Desktops" class="purple-btn"
             >Learn More
             <span class="icon">
             <svg width="18" height="20" viewBox="0 0 18 20" fill="#none" xmlns="http://www.w3.org/2000/svg">
@@ -76,7 +76,7 @@
       <div class="row">
         <div id="watches" class="column-half">
           <h2>Watches</h2>
-          <a href="watches.html" class="white-btn"
+          <a href="product_catalogue.php?category=Watches" class="white-btn"
             >Learn More
             <span class="icon">
             <svg width="12" height="15" viewBox="0 0 18 20" fill="#none" xmlns="http://www.w3.org/2000/svg">
@@ -87,7 +87,7 @@
         </div>
         <div id="earbuds" class="column-half">
           <h2>Earbuds</h2>
-          <a href="Earbuds.html" class="white-btn"
+          <a href="product_catalogue.php?category=Earbuds" class="white-btn"
             >Learn More
             <span class="icon">
             <svg width="12" height="15" viewBox="0 0 18 20" fill="#none" xmlns="http://www.w3.org/2000/svg">

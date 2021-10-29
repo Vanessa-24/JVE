@@ -16,10 +16,162 @@ h4 {
 }
 
 .checkout-details.row {
-  grid-template-columns: 55% 45%;
+  grid-template-columns: 60% 40%;
 }
 
 .note,
 form span {
   color: #e50000;
+}
+
+/***** Customer Details ******/
+/* Added border line on the right */
+.cust-details {
+  border-right: 1px solid #848484;
+  margin-right: 2rem;
+}
+
+/* Form styling */
+form {
+  width: 600px;
+}
+
+.checkout-details input {
+  padding: 0.65rem 0.7rem;
+  border: 1px solid #848383;
+  margin-bottom: 2rem;
+  font-size: 1.12rem;
+}
+
+::placeholder {
+  color: #ababab;
+}
+
+/* Labels */
+.checkout-details p {
+  padding-bottom: 0.7rem;
+}
+
+.flex-row {
+  display: flex;
+}
+
+.col.first-name {
+  flex: 55%;
+}
+
+.col.last-name {
+  flex: 45%;
+  margin-left: 5rem;
+}
+
+input#your-email {
+  width: 300px;
+}
+
+input#your-number {
+  width: 250px;
+}
+
+input#your-address,
+input#first-name,
+input#last-name {
+  flex: 2;
+}
+
+#payment-img {
+  padding: 0 1.5rem 2rem 1.5rem;
+}
+
+input#your-card-no {
+  width: 80%;
+}
+
+.col.card-input {
+  flex: 70%;
+}
+
+.col.cvv-input {
+  flex: 30%;
+}
+
+/* Button stylings */
+.buttons-row {
+  margin-top: 2rem;
+}
+
+.btn {
+  padding: 15px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.25rem;
+  background: #fff;
+}
+
+.submit-btn {
+  border: 2px solid #4d2e7a;
+  color: #4d2e7a;
+  flex: 70%;
+}
+
+.submit-btn:hover {
+  color: white;
+  background-color: #4d2e7a;
+}
+
+.clear-btn {
+  border: 2px solid #9c4040;
+  color: #9c4040;
+  flex: 30%;
+  margin-left: 2rem;
+}
+
+.clear-btn:hover {
+  color: white;
+  background-color: #9c4040;
+}
+
+/***** Order Summary *****/
+.order-summary .row {
+  grid-template-columns: 35% 45% 20%;
+  justify-items: end;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #848484;
+}
+
+.total.row {
+  padding: 0;
+  border: none;
+}
+
+.order-summary h4.order-label {
+  border-bottom: 1px solid #848484;
+  padding-bottom: 1.4rem;
+  margin: 0;
+}
+
+.product-img img {
+  max-width: 100%;
+}
+
+.product-details {
+  width: 90%;
+}
+
+.product-details .model {
+  font-weight: bold;
+}
+
+.colour {
+  padding-top: 1rem;
+}
+
+.colour-wrapper {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-left: 8px;
+  vertical-align: top;
 }
