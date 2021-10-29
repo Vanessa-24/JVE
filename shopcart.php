@@ -1,8 +1,8 @@
 <?php
     include "dbconnect.php";
-    $product_table_name = "test_product";
-    $product_details_table_name = "test_details";
-    $product_image_table_name = "test_img";
+    $product_table_name = "products";
+    $product_details_table_name = "product_details";
+    $product_image_table_name = "product_images";
     session_start();
     if (!isset($_SESSION['cart'])){
         $_SESSION['cart'] = array();
@@ -19,7 +19,7 @@
     $product_id = array();
     // get the product_id of the items in the shopcart
     for ($i=0; $i <count($details_id); $i++) {
-        $query = "SELECT * from " .$product_details_table_name." WHERE details_id=".$details_id[$i];
+        $query = "SELECT * from " .$product_details_table_name." WHERE details_ID=".$details_id[$i];
         $result = $dbcnx->query($query);
         $details_result = $result->fetch_assoc();
         array_push($product_id, $details_result["product_ID"]);
@@ -46,7 +46,7 @@
             $details_result = $result->fetch_assoc();
             array_push($stock_arr,$details_result['stock']);
             array_push($colour_codes, $details_result['colour_code']);
-            array_push($details_id_shopcart,$details_result['details_id']);
+            array_push($details_id_shopcart,$details_result['details_ID']);
         }
         $img_link = array();
         for ($j=0; $j <count($details_id_shopcart); $j++) {

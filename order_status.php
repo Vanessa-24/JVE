@@ -1,24 +1,24 @@
 <?php 
   include "dbconnect.php";
   $order_id = $_GET['order_id'];
-  $order_items_table_name = "test_orders_items";
-  $product_table_name = "test_product";
-  $product_details_table_name = "test_details";
-  $product_image_table_name = "test_img";
-  $query = "SELECT * from " .$order_items_table_name." WHERE order_id=".$order_id;
+  $order_items_table_name = "orders_items";
+  $product_table_name = "products";
+  $product_details_table_name = "product_details";
+  $product_image_table_name = "product_images";
+  $query = "SELECT * from " .$order_items_table_name." WHERE order_ID=".$order_id;
   $result = $dbcnx->query($query);
   $num_results = $result->num_rows;
   $ordered_items_result = array();
   //get ordered items details
   for ($i=0; $i <$num_results; $i++) {
     $order_items_result = $result->fetch_assoc();
-    $ordered_items_result[$i]['product_id'] = $order_items_result['product_id'];
+    $ordered_items_result[$i]['product_id'] = $order_items_result['product_ID'];
     $ordered_items_result[$i]['colour'] = $order_items_result['colour'];
     $ordered_items_result[$i]['quantity'] = $order_items_result['quantity'];
     $ordered_items_result[$i]['status'] = $order_items_result['status'];
   }
   for($i=0; $i< count($ordered_items_result);$i++){
-    $query = "SELECT * from " .$product_table_name." WHERE product_id=".$ordered_items_result[$i]['product_id'];
+    $query = "SELECT * from " .$product_table_name." WHERE product_ID=".$ordered_items_result[$i]['product_id'];
     $result = $dbcnx->query($query);
     $num_results = $result->num_rows;
     //get product model name
@@ -28,15 +28,15 @@
   $details_id = array();
   //get details_id
   for($i=0; $i< count($ordered_items_result);$i++){
-    $query = "SELECT * from " .$product_details_table_name." WHERE product_id=".$ordered_items_result[$i]['product_id']. " AND colour= '".$ordered_items_result[$i]['colour']."'";
+    $query = "SELECT * from " .$product_details_table_name." WHERE product_ID=".$ordered_items_result[$i]['product_id']. " AND colour= '".$ordered_items_result[$i]['colour']."'";
     $result = $dbcnx->query($query);
     //get product model name
     $product_details_result = $result->fetch_assoc();
-    $details_id[$i]= $product_details_result['details_id'];
+    $details_id[$i]= $product_details_result['details_ID'];
     $ordered_items_result[$i]['colour_code'] = $product_details_result['colour_code'];
   }
   for($i=0; $i< count($details_id);$i++){
-    $query = "SELECT * from " .$product_image_table_name." WHERE details_id=".$details_id[$i];
+    $query = "SELECT * from " .$product_image_table_name." WHERE details_ID=".$details_id[$i];
     $result = $dbcnx->query($query);
     $num_results = $result->num_rows;
     //get product model name

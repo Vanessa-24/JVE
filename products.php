@@ -1,8 +1,8 @@
 <?php
     include "dbconnect.php";
-    $product_table_name = "test_product";
-    $product_details_table_name = "test_details";
-    $product_image_table_name = "test_img";
+    $product_table_name = "products";
+    $product_details_table_name = "product_details";
+    $product_image_table_name = "product_images";
     $product_id = $_GET["id"];
     session_start();
     if (!isset($_SESSION['cart'])){
@@ -15,7 +15,7 @@
     //     exit();
     // }
     //echo var_dump($product_id);
-    $query = "SELECT * from " .$product_table_name." WHERE product_id=".$product_id;
+    $query = "SELECT * from " .$product_table_name." WHERE product_ID=".$product_id;
     //echo($query);
     $result = $dbcnx->query($query);
     $num_results = $result->num_rows;
@@ -25,7 +25,7 @@
         //var_dump($product_result);
 
     }
-    $query = "SELECT * from " .$product_details_table_name." WHERE product_id=".$product_id;
+    $query = "SELECT * from " .$product_details_table_name." WHERE product_ID=".$product_id;
     $result = $dbcnx->query($query);
     $num_results = $result->num_rows;
     //id to query will contain details_id to get the img link etc from products_img
@@ -37,12 +37,12 @@
     for ($i=0; $i <$num_results; $i++) {
         $details_result = $result->fetch_assoc();
         array_push($colours,array(ucwords($details_result['colour']), $details_result['colour_code'], $details_result['stock']));
-        array_push($id_to_query,$details_result["details_id"]);
+        array_push($id_to_query,$details_result["details_ID"]);
     }
     //var_dump($colours);
     //var_dump($id_to_query);
     for ($i=0; $i <count($id_to_query); $i++) {
-        $query = "SELECT * from " .$product_image_table_name." WHERE details_id = ".$id_to_query[$i];
+        $query = "SELECT * from " .$product_image_table_name." WHERE details_ID = ".$id_to_query[$i];
         //echo $query;
         $result = $dbcnx->query($query);
         $num_results = $result->num_rows;
