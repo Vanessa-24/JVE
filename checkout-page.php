@@ -1,3 +1,67 @@
+<?php
+  include "dbconnect.php";
+    $product_table_name = "products";
+    $product_details_table_name = "product_details";
+    $product_image_table_name = "product_images";
+    session_start();
+    if (!isset($_SESSION['cart'])){
+        $_SESSION['cart'] = array();
+    }  
+    //var_dump($_SESSION);
+    $details_id = array();
+    $qty = array();
+    foreach ($_SESSION['cart'] as $key => $value) {
+        array_push($details_id,$key);
+        array_push($qty,$value);
+    }
+    // result details will have the first img, the model name, specs. colours, qty, price
+    $result_details = array();
+    $product_id = array();
+    // get the product_id of the items in the shopcart
+    for ($i=0; $i <count($details_id); $i++) {
+        $query = "SELECT * from " .$product_details_table_name." WHERE details_ID=".$details_id[$i];
+        $result = $dbcnx->query($query);
+        $details_result = $result->fetch_assoc();
+        array_push($product_id, $details_result["product_ID"]);
+        $result_details[$i] = array();
+        $result_details[$i]['colour_selected'] = $details_result["colour_code"];
+    }
+
+    // get the product model, details, specs and price of the items in the shopcart and also all the colours available where stock > 0
+    for ($i=0; $i <count($product_id); $i++) {
+        $query = "SELECT * from " .$product_table_name." WHERE product_ID=".$product_id[$i];
+        $result = $dbcnx->query($query);
+        $product_result = $result->fetch_assoc();
+        $result_details[$i]['product_model'] = $product_result["product_model"];
+        $result_details[$i]['detail'] = $product_result["detail"];
+        $result_details[$i]['spec'] = $product_result["specification"];
+        $result_details[$i]['price'] = $product_result["price"];
+        $query = "SELECT * from " .$product_details_table_name." WHERE product_ID=".$product_id[$i]. " AND stock>0";
+        $result = $dbcnx->query($query);
+        $colour_codes = array();
+        $stock_arr = array();
+        //details id shopcart will contain the other colours as well bu details_id array only contain the id that the user has chose in the shopcart
+        $details_id_shopcart = array();
+        for($j=0; $j<$result->num_rows; $j++){
+            $details_result = $result->fetch_assoc();
+            array_push($stock_arr,$details_result['stock']);
+            array_push($colour_codes, $details_result['colour_code']);
+            array_push($details_id_shopcart,$details_result['details_ID']);
+        }
+        $result_details[$i]['details_id'] = $details_id_shopcart;
+        $img_link = array();
+        for ($j=0; $j <count($details_id_shopcart); $j++) {
+            $query = "SELECT * from " .$product_image_table_name." WHERE details_ID=".$details_id_shopcart[$j];
+            $result = $dbcnx->query($query);
+            $details_result = $result->fetch_assoc();
+            array_push($img_link,$details_result['img_link']);
+            
+        }
+        $result_details[$i]['img_link'] = $img_link;
+        $result_details[$i]['colours_code'] = $colour_codes;
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
