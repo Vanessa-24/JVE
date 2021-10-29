@@ -48,6 +48,7 @@
             array_push($colour_codes, $details_result['colour_code']);
             array_push($details_id_shopcart,$details_result['details_ID']);
         }
+        $result_details[$i]['details_id'] = $details_id_shopcart;
         $img_link = array();
         for ($j=0; $j <count($details_id_shopcart); $j++) {
             $query = "SELECT * from " .$product_image_table_name." WHERE details_ID=".$details_id_shopcart[$j];
@@ -89,21 +90,20 @@
             padding-top:80px;
             font-size:1.2rem;
         }
-        table {
+        table{
             border-collapse: collapse;
-            margin-top: -30px;
         }
-        tr{
+        #shopcart-table tr{
             border-bottom: 1px solid #848484;
         }
-        tr>td{
+        #shopcart-table tr>td{
             padding-top: 30px;
         }
-        td:first-child{
+        #shopcart-table td:first-child{
             width: 15%;
             padding-bottom: 30px;
         }
-        td:nth-child(2){
+        #shopcart-table td:nth-child(2){
             vertical-align: top;
             padding-left: 20px;
             width: 50%;
@@ -142,26 +142,40 @@
         .price{
             font-weight:bold;
         }
+        .summary{
+            padding-top:30px;
+            width:fit-content;
+            margin-left: auto;
+            margin-right: 0;
+        }
+        #summary-table caption{
+            text-align:left;
+            font-weight:bold;
+            padding-bottom: 10px;
+            font-size:1.1rem;
+        }
+        #summary-table td{
+            padding-top:10px;
+        }
+        #summary-table td:first-child{
+            padding-right:40px;
+        }
+        #summary-table tr:nth-child(3)>td{
+            padding-bottom: 10px;
+        }
+        #summary-table tr:last-child{
+            border-top: 1px solid #ADADAD;
+            font-weight:bold;
+        }
+        .shopcart-btn{
+            margin-top:30px;
+        }
     </style>
 </head>
 <body>
-    <header class="header">
-        <nav>
-            <a href="./">
-                <img class="jve-logo" alt="JVE Logo" src="img/JVE-logo.png" />
-            </a>
-            <div class="header-products">
-                <a href="product_catalogue.php?category=Smartphones">Smartphones</a>
-                <a href="product_catalogue.php?category=Laptops">Laptops</a>
-                <a href="product_catalogue.php?category=Desktops">Desktops</a>
-                <a href="product_catalogue.php?category=Watches">Watches</a>
-                <a href="product_catalogue.php?category=Earbuds">Earbuds</a>
-            </div>
-            <a href="shopcart.php">
-                <img alt="shopcart" src="img/bag_icon.svg" />
-            </a>
-        </nav>
-    </header>
+    <?php
+        include ('header.php');
+    ?>
     <div class="content">
         <div class="title">
             Your Cart
@@ -198,11 +212,11 @@
                         echo '</td>';
                         echo '<td class="quantity">';
                         echo '<button class="quantity-btn" onclick="decrease(this);updatePrice(this);"> - </button>';
-                        echo '<input type="text" value="1" class="quantity-text">';
+                        echo '<input type="text" value="'.$qty[$i].'" class="quantity-text">';
                         echo '<button class="quantity-btn increase-qty" data-maxqty= "'.$result_details[$i]['stock'][array_search($result_details[$i]["colour_selected"],$result_details[$i]["colours_code"])].'" onclick="increase(this);updatePrice(this);"> + </button>';
                         echo '</td>';
                         echo '<td class="price">';
-                        echo '$'.$result_details[$i]["price"];
+                        echo '$'.number_format((float)$qty[$i]*$result_details[$i]["price"],2, '.', '');
                         echo '</td>';
                         echo '<td class="remove">';
                         echo '<button onclick="remove()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">';
@@ -214,34 +228,37 @@
                 ?>
               </table>
         </div>
+
+        <div class="summary">
+            <table id="summary-table">
+                <caption>Summary</caption>
+                <tr>
+                    <td> Subtotal: </td>
+                    <td id="subtotal"> $1230. 00</td>
+                </tr>
+                <tr>
+                    <td> GST: </td>
+                    <td id="gst"> $1230. 00</td>
+                </tr>
+                <tr>
+                    <td> Shipping fees: </td>
+                    <td id="shipping-fees"> $1230. 00</td>
+                </tr>
+                <tr>
+                    <td> Total: </td>
+                    <td id="total"> $1230. 00</td>
+                </tr>
+                
+            </table>
+            <div class="shopcart-btn">
+                Checkout
+            </div> 
+        </div>
         
     </div>
-    <footer>
-        <div class="footer-wrapper">
-            <ul>
-                <li class="footer-heading">Shop</li>
-                <li><a href="product_catalogue.php?category=Smartphones">Smartphones</a></li>
-                <li><a href="product_catalogue.php?category=Laptops">Laptops</a></li>
-                <li><a href="product_catalogue.php?category=Desktops">Desktops</a></li>
-                <li><a href="product_catalogue.php?category=Watches">Watches</a></li>
-                <li><a href="product_catalogue.php?category=Earbuds">Earbuds</a></li>
-            </ul>
-            <ul>
-                <li class="footer-heading">Support</li>
-                <li><a href="contact-us.php">Contact Us</a></li>
-                <li><a href="faq.html">FAQs</a></li>
-            </ul>
-            <ul>
-                <li class="footer-heading">JVE</li>
-                <li><a href="aboutus.html">About Us</a></li>
-                <li><a href="stores.php">Stores</a></li>
-            </ul>
-            <div class="break"></div>
-            <div class="copyright">
-                Copyright © 2021 JVE Pte Ltd. All rights reserved
-            </div>
-        </div>
-    </footer>
+    <?php
+        include ('footer.php');
+    ?>
     <script src="js/product.js"></script>
     <script>
         var acc = document.getElementsByClassName("accordion");
@@ -249,6 +266,8 @@
         var panelHeight = 120;
         var resultDetails = <?php echo json_encode($result_details, JSON_HEX_TAG); ?>;
         var cartDetailsId = <?php echo json_encode($details_id, JSON_HEX_TAG); ?>;
+        console.log(resultDetails);
+        updateSummary();
         for (i = 0; i < acc.length; i++) {
             acc[i].addEventListener("click", function() {
                 /* Toggle between adding and removing the "active" class,
@@ -287,6 +306,9 @@
                 }
             }
             //let the colour be selected, change the pic and the max-qty
+            var prevId = this.parentNode.getElementsByClassName("colour-circle selected")[0].id;
+            prevId = prevId[prevId.length-1];
+            console.log(prevId)
             this.parentNode.getElementsByClassName("colour-circle selected")[0].classList.remove("selected");
             this.classList.add("selected");
             var numColour = Number(this.id[this.id.length-1]);
@@ -300,6 +322,7 @@
             var qty_text = thisTRElement.getElementsByClassName("quantity-text")[0];
             // //reset qty to 1
             qty_text.value = 1;
+            updateSessionVariable(false,resultDetails[thisTRElement.rowIndex]["details_id"][numColour],1,resultDetails[thisTRElement.rowIndex]["details_id"][prevId]);
 
         }
 
@@ -322,6 +345,7 @@
             req.send(params);
             cartDetailsId.splice(rowRemove.rowIndex, 1);
             rowRemove.remove();
+            updateSummary();
         }
 
         function updatePrice(el){
@@ -331,6 +355,53 @@
             var qty = qtyText.value; 
             var newPrice = Number(qty) * resultDetails[thisTRElement.rowIndex]["price"];
             price.innerHTML = "$" + newPrice.toFixed(2);
+            updateSummary();
+            //update php session variable as well
+            var numColour = thisTRElement.getElementsByClassName("colour-circle selected")[0].id;
+            numColour = numColour[numColour.length-1];
+            updateSessionVariable(true,resultDetails[thisTRElement.rowIndex]["details_id"][numColour],qty,null);
+        }
+
+        function updateSummary(){
+            var subtotalElement = document.getElementById("subtotal");
+            var gstElement = document.getElementById("gst");
+            var shippingFeesElement = document.getElementById("shipping-fees");
+            var totalElement = document.getElementById("total");
+            var pricesElement = document.getElementsByClassName("price");
+            var gstRate = 0.07;
+            var shippingRate = 0.001;
+            var subtotal = 0;
+            for(var i = 0; i<pricesElement.length;i++){
+                subtotal += Number(pricesElement[i].innerHTML.substring(1));
+            }
+            var gst = subtotal*gstRate;
+            var shippingFees = subtotal*shippingRate;
+            var total = subtotal + gst + shippingFees;
+            subtotalElement.innerHTML = "$" + subtotal.toFixed(2);
+            gstElement.innerHTML = "$" + gst.toFixed(2);
+            shippingFeesElement.innerHTML = "$" + shippingFees.toFixed(2);
+            totalElement.innerHTML = "$" + total.toFixed(2);
+            
+
+        }
+
+        function updateSessionVariable(isQuantity,detailsID,qty,prevDetailsID){
+            // if only quantity change then only need change the qty in session cart else need to remove the prev details id with the new one
+            if(isQuantity){
+                var params = "detailsID="+detailsID+"&qty="+qty;
+            }else {
+                var params = "prevDetailsID="+prevDetailsID+"&detailsID="+detailsID+"&qty="+qty;
+            }
+            var req = new XMLHttpRequest();
+            req.onreadystatechange = function() { //Call a function when the state changes.
+                if(this.readyState === XMLHttpRequest.DONE && this.status === 200) { // complete and no errors
+                    // Request finished. Do processing here.
+                }
+            };
+            req.open("POST", 'shopcarthandler.php',true);
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            req.send(params);
+
         }
     
 

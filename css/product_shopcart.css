@@ -1,6 +1,5 @@
 
 /******************************************************************/
-/* Personal */
 .colour-circle{
     border-radius: 50%; 
     width: 20px; 
@@ -20,4 +19,20 @@
     bottom: -5px;
     right: -5px;
     margin: 1px;
+}
+.shopcart-btn{
+    background-color: transparent;
+    color: #4D2E7A;
+    border: 2px solid #4D2E7A; 
+    border-radius: 15px;
+    padding: 8px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-family: Roboto, Arial;
+}
+.shopcart-btn:hover{
+    background-color: #4D2E7A;
+    color: white;
 }
