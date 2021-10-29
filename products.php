@@ -265,23 +265,9 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <nav>
-            <a href="./">
-                <img class="jve-logo" alt="JVE Logo" src="img/JVE-logo.png" />
-            </a>
-            <div class="header-products">
-                <a href="product_catalogue.php?category=Smartphones">Smartphones</a>
-                <a href="product_catalogue.php?category=Laptops">Laptops</a>
-                <a href="product_catalogue.php?category=Desktops">Desktops</a>
-                <a href="product_catalogue.php?category=Watches">Watches</a>
-                <a href="product_catalogue.php?category=Earbuds">Earbuds</a>
-            </div>
-            <a href="shopcart.php">
-                <img alt="shopcart" src="img/bag_icon.svg" />
-            </a>
-        </nav>
-    </header>
+    <?php
+        include ('header.php');
+    ?>
     <div class="content">
         <div class="title">
             Product Details
@@ -361,32 +347,9 @@
         </div>
        
     </div>
-    <footer>
-        <div class="footer-wrapper">
-            <ul>
-                <li class="footer-heading">Shop</li>
-                <li><a href="product_catalogue.php?category=Smartphones">Smartphones</a></li>
-                <li><a href="product_catalogue.php?category=Laptops">Laptops</a></li>
-                <li><a href="product_catalogue.php?category=Desktops">Desktops</a></li>
-                <li><a href="product_catalogue.php?category=Watches">Watches</a></li>
-                <li><a href="product_catalogue.php?category=Earbuds">Earbuds</a></li>
-            </ul>
-            <ul>
-                <li class="footer-heading">Support</li>
-                <li><a href="contact-us.php">Contact Us</a></li>
-                <li><a href="faq.html">FAQs</a></li>
-            </ul>
-            <ul>
-                <li class="footer-heading">JVE</li>
-                <li><a href="aboutus.html">About Us</a></li>
-                <li><a href="stores.php">Stores</a></li>
-            </ul>
-            <div class="break"></div>
-            <div class="copyright">
-                Copyright © 2021 JVE Pte Ltd. All rights reserved
-            </div>
-        </div>
-    </footer>
+    <?php
+        include ('footer.php');
+    ?>
     <script src="js/product.js"></script>
     <script>
         checkStock();
