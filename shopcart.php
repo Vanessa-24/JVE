@@ -327,6 +327,7 @@
             // //reset qty to 1
             qty_text.value = 1;
             updateSessionVariable(false,resultDetails[thisTRElement.rowIndex]["details_id"][numColour],1,resultDetails[thisTRElement.rowIndex]["details_id"][prevId]);
+            updatePrice(this);
 
         }
 
