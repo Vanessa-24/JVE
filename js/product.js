@@ -10,5 +10,7 @@ function increase(el){
     var qtyText = el.parentNode.getElementsByClassName("quantity-text");
     if (Number(qtyText[0].value)+1<=maxQty){
         qtyText[0].value = Number(qtyText[0].value)+1+"";
+    }else{
+        alert("You have reach the max stock!");
     }
 }
