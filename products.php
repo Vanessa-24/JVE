@@ -209,25 +209,9 @@
             font-weight:bold;
             font-size:1.2rem;
         }
-        .shopcart-btn{
-            background-color: transparent;
-            color: #4D2E7A;
-            border: 2px solid #4D2E7A; 
-            border-radius: 15px;
-            padding: 8px 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-family: Roboto, Arial;
-        }
         .shopcart-btn svg{
             padding-right: 10px;
             transform: scale(0.9);
-        }
-        .shopcart-btn:hover{
-            background-color: #4D2E7A;
-            color: white;
         }
         .shopcart-btn:hover svg path{
             fill: white;

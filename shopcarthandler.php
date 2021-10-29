@@ -12,9 +12,21 @@
     if(isset($_POST['details_id'])){
         //for adding products into shopcart
         $_SESSION['cart'][$_POST['details_id']] = $_POST['qty'];
+        ksort($_SESSION['cart']);
     } else if(isset($_POST['remove_detailsID'])){
         //for removing items in shopcart
         unset($_SESSION['cart'][$_POST['remove_detailsID']]);
+    } else if(isset($_POST['detailsID'])){
+        //for updating for shopcart page
+        if(isset($_POST['prevDetailsID'])){
+            //need to remove prev details id and update with a new one
+            unset($_SESSION['cart'][$_POST['prevDetailsID']]);
+            $_SESSION['cart'][$_POST['detailsID']] = $_POST['qty'];
+        }else{
+            //just to update the qty
+            $_SESSION['cart'][$_POST['detailsID']] = $_POST['qty'];
+        }
+        ksort($_SESSION['cart']);
     }
 
     exit();
