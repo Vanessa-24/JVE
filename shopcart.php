@@ -344,6 +344,8 @@
             req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             req.send(params);
             cartDetailsId.splice(rowRemove.rowIndex, 1);
+            resultDetails.splice(rowRemove.rowIndex, 1);
+            //console.log(resultDetails)
             rowRemove.remove();
             updateSummary();
         }

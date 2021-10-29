@@ -12,6 +12,7 @@
     if(isset($_POST['details_id'])){
         //for adding products into shopcart
         $_SESSION['cart'][$_POST['details_id']] = $_POST['qty'];
+        ksort($_SESSION['cart']);
     } else if(isset($_POST['remove_detailsID'])){
         //for removing items in shopcart
         unset($_SESSION['cart'][$_POST['remove_detailsID']]);
@@ -25,6 +26,7 @@
             //just to update the qty
             $_SESSION['cart'][$_POST['detailsID']] = $_POST['qty'];
         }
+        ksort($_SESSION['cart']);
     }
 
     exit();
