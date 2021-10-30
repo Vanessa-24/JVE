@@ -26,6 +26,7 @@
         array_push($product_id, $details_result["product_ID"]);
         $result_details[$i] = array();
         $result_details[$i]['colour_selected'] = $details_result["colour_code"];
+        $result_details[$i]['colour_name_selected'] = $details_result["colour"];
     }
 
     // get the product model, details, specs and price of the items in the shopcart and also all the colours available where stock > 0
@@ -43,6 +44,7 @@
     }
 
     //var_dump($result_details);
+    //var_dump($product_id);
 ?>
 
 <!DOCTYPE html>
