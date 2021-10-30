@@ -42,7 +42,7 @@
         $result_details[$i]['img_link'] = $img_result['img_link'];
     }
 
-    var_dump($result_details);
+    //var_dump($result_details);
 ?>
 
 <!DOCTYPE html>
