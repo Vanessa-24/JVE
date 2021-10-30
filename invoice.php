@@ -1,3 +1,25 @@
+<?php
+    include "dbconnect.php";
+    // Get order ID
+    $orderID = $_GET["orderid"];
+
+    // Get customer's details
+    $query = "SELECT customers.name, customers.address, orders.amount, orders.date FROM customers, orders WHERE customers.cust_ID=orders.cust_ID AND orders.order_ID='$orderID'"; 
+
+    // Query submission
+    $result = $dbcnx->query($query);
+    $num_results = $result->num_rows;
+
+    for ($i=0; $i < $num_results; $i++) {
+        $customer = $result->fetch_assoc();
+
+        // Retrieve total amount of order
+        $totalAmt = $customer['amount'];
+        $subTotal = ($totalAmt/107.1) * 100;
+        $gst = ($totalAmt/107.1) * 7;
+        $shoppingFee = ($totalAmt/107.1) * 0.1;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,10 +41,9 @@
         <div class="to-customer">
           <p class="invoice-title">Invoice to:</p>
           <div class="customer-info">
-            <p class="cust-name">Karen Yo</p>
+            <p class="cust-name"><?php echo $customer['name']; ?></p>
             <p class="cust-address">
-              Block 555 Jurong East Street 90 <br />#09-10 <br />
-              Singapore 390423
+              <?php echo str_replace(",","<br>",$customer['address']); ?>
             </p>
           </div>
         </div>
@@ -31,10 +52,17 @@
           <p>Order ID:</p>
         </div>
         <div class="details">
-          <p id="date">20 Aug 2021</p>
-          <p id="order-id">2312312</p>
+          <p id="date">
+            <?php 
+            $date = date_create($customer['date']);
+            echo date_format($date,"d F Y"); ?>
+          </p>
+          <p id="order-id"><?php echo $orderID; ?></p>
         </div>
       </div>
+      <?php } 
+
+      ?>
       <div class="receipt">
         <!-- Table Header -->
         <div class="table-head row">
@@ -100,10 +128,10 @@
           <h4>Total:</h4>
         </div>
         <div class="calculation">
-          <p id="subtotal">$ 379.80</p>
-          <p id="gst">$ 12.82</p>
-          <p id="fees">$ 6.36</p>
-          <h4 id="total-amt">$ 410.80</h4>
+          <p id="subtotal">$ <?php echo number_format($subTotal,2) ; ?></p>
+          <p id="gst">$ <?php echo number_format($gst,2) ; ?></p>
+          <p id="fees">$ <?php echo number_format($shoppingFee,2) ; ?></p>
+          <h4 id="total-amt">$ <?php echo $totalAmt; ?></h4>
         </div>
       </div>
     </div>

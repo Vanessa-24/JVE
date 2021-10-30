@@ -90,7 +90,7 @@
             alt="<?php echo $product['product_model']; ?>"
           />
           <h6 class="product-model"><?php echo $product['product_model']; ?></h6>
-          <p class="price">S$<?php echo $product['price']; ?></p>
+          <p class="price">S$ <?php echo $product['price']; ?></p>
           <a class="learn-more-btn" href="products.php?id=<?php echo $product['product_ID']; ?>"
             >Learn More
             <span class="icon">

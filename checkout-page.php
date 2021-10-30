@@ -7,7 +7,11 @@
     if (!isset($_SESSION['cart'])){
         $_SESSION['cart'] = array();
     }  
+
+    // Save total amount in session
     $total_amount = $_GET['total'];
+    $_SESSION['total']= $total_amount;
+
     //var_dump($_SESSION);
     $details_id = array();
     $qty = array();

@@ -217,7 +217,7 @@
                         echo '<button class="quantity-btn increase-qty" data-maxqty= "'.$result_details[$i]['stock'][array_search($result_details[$i]["colour_selected"],$result_details[$i]["colours_code"])].'" onclick="increase(this);updatePrice(this);"> + </button>';
                         echo '</td>';
                         echo '<td class="price">';
-                        echo '$'.number_format((float)$qty[$i]*$result_details[$i]["price"],2, '.', '');
+                        echo '$ '.number_format((float)$qty[$i]*$result_details[$i]["price"],2, '.', '');
                         echo '</td>';
                         echo '<td class="remove">';
                         echo '<button onclick="remove()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">';
@@ -245,7 +245,7 @@
                 echo '<td id="gst"></td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td> Shipping fees: </td>';
+                echo '<td> Shopping fees: </td>';
                 echo '<td id="shipping-fees"></td>';
                 echo '</tr>';
                 echo '<tr>';
@@ -363,7 +363,7 @@
             var qtyText = thisTRElement.getElementsByClassName("quantity-text")[0];
             var qty = qtyText.value; 
             var newPrice = Number(qty) * resultDetails[thisTRElement.rowIndex]["price"];
-            price.innerHTML = "$" + newPrice.toFixed(2);
+            price.innerHTML = "$ " + newPrice.toFixed(2);
             updateSummary();
             //update php session variable as well
             var numColour = thisTRElement.getElementsByClassName("colour-circle selected")[0].id;
@@ -386,10 +386,10 @@
             var gst = subtotal*gstRate;
             var shippingFees = subtotal*shippingRate;
             var total = subtotal + gst + shippingFees;
-            subtotalElement.innerHTML = "$" + subtotal.toFixed(2);
-            gstElement.innerHTML = "$" + gst.toFixed(2);
-            shippingFeesElement.innerHTML = "$" + shippingFees.toFixed(2);
-            totalElement.innerHTML = "$" + total.toFixed(2);
+            subtotalElement.innerHTML = "$ " + subtotal.toFixed(2);
+            gstElement.innerHTML = "$ " + gst.toFixed(2);
+            shippingFeesElement.innerHTML = "$ " + shippingFees.toFixed(2);
+            totalElement.innerHTML = "$ " + total.toFixed(2);
             
 
         }

@@ -11,7 +11,7 @@ p,
 
 /***** Admin Info ******/
 .row.admin {
-  grid-template-columns: 82% 8% 10%;
+  grid-template-columns: 80% 7% 13%;
 }
 
 .details {

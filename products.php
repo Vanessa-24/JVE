@@ -302,7 +302,7 @@
                     <?php echo $product_result['brand']." ".$product_result['product_model'];?>
                 </div>
                 <div class="price">
-                    $<?php echo $product_result['price'];?>
+                    S$ <?php echo $product_result['price'];?>
                 </div>
                 <div class="details">
                     <?php echo $product_result['detail'];?>
