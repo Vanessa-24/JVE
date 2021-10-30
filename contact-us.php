@@ -28,7 +28,7 @@
             id="first-name"
             name="firstname"
             placeholder="First Name"
-            oninput="validateFirstname()"
+            oninput="validateFirstname('contact-form')"
           />
           <div id="errorName" class="error-msg"></div>
         </div>
@@ -37,7 +37,7 @@
           id="last-name"
           name="lastname"
           placeholder="Last Name"
-          oninput="validateLastname()"
+          oninput="validateLastname('contact-form')"
         />
         <div id="errorLastname" class="error-msg"></div>
         <div>
@@ -46,7 +46,7 @@
             id="your-email"
             name="email"
             placeholder="Email Address"
-            oninput="validateEmail()"
+            oninput="validateEmail('contact-form')"
           />
           <div id="errorEmail" class="error-msg"></div>
         </div>

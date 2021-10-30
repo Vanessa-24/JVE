@@ -59,6 +59,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/jve.css" />
     <link rel="stylesheet" href="css/checkout.css" />
+    <script src="js/contact-form.js"></script>
     <title>Checkout</title>
   </head>
   <body>
@@ -77,7 +78,7 @@
             action="order_handler.php"
             id="customer-form"
             method="post"
-            onsubmit="checkForm()"
+            onsubmit="checkCheckoutForm()"
           >
             <!-- Name -->
             <p>Name<span>*</span>:</p>
@@ -88,6 +89,7 @@
                   id="first-name"
                   name="firstname"
                   placeholder="First Name"
+                  oninput="validateFirstname('customer-form')"
                   required
                 />
               </div>
@@ -97,21 +99,28 @@
                   id="last-name"
                   name="lastname"
                   placeholder="Last Name"
+                  oninput="validateLastname('customer-form')"
                   required
                 />
               </div>
+            </div>
+            <div class="error-msg">
+              <div id="errorName"></div>
+              <div id="errorLastname"></div>
             </div>
             <!-- Email address -->
             <div id="email-add">
               <p>Email<span>*</span>:</p>
               <input
                 type="email"
-                id="your-email"
+                id="email"
                 name="email"
                 placeholder="Email Address"
+                oninput="validateEmail('customer-form')"
                 required
               />
             </div>
+            <div class="error-msg" id="errorEmail"></div>
             <!-- Phone number -->
             <div id="#phone-num">
               <p>Phone number:</p>
@@ -120,8 +129,10 @@
                 id="your-number"
                 name="phone-no"
                 placeholder="Phone number"
+                oninput="validatePhoneNum('customer-form')"
               />
             </div>
+            <div class="error-msg" id="errorPhone"></div>
             <!-- Address -->
             <p>Address<span>*</span>:</p>
             <div id="address" class="flex-row">
@@ -133,6 +144,7 @@
                 required
               />
             </div>
+            <div class="error-msg"></div>
             <!-- Payment -->
             <div>
               <h4>Payment:</h4>
@@ -151,6 +163,7 @@
                   id="your-card-no"
                   name="card-no"
                   placeholder="Card Number"
+                  oninput="validateCardNum('customer-form')"
                   required
                 />
               </div>
@@ -161,10 +174,12 @@
                   id="your-cvv"
                   name="cvv-no"
                   placeholder="CVV"
+                  oninput="validateCardNum('customer-form')"
                   required
                 />
               </div>
             </div>
+            <div class="error-msg" id="errorCard"></div>
 
             <div class="buttons-row flex-row">
                 <button
@@ -227,4 +242,5 @@
     include ('footer.php');
     ?>
   </body>
+  <script></script>
 </html>

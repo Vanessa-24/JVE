@@ -39,7 +39,7 @@ form {
 .checkout-details input {
   padding: 0.65rem 0.7rem;
   border: 1px solid #848383;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: 1.12rem;
 }
 
@@ -130,6 +130,18 @@ input#your-card-no {
 .clear-btn:hover {
   color: white;
   background-color: #9c4040;
+}
+
+.error-msg{
+  margin-bottom: 1rem;
+  color:#cc0033;
+  font-size: 0.9rem;
+  display: flex;
+}
+.error-msg div:nth-child(2) {
+  margin-left:auto;
+  margin-right: 0;
+
 }
 
 /***** Order Summary *****/
