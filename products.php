@@ -470,6 +470,13 @@
             req.open("POST", 'shopcarthandler.php',true);
             req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             req.send(params);
+            // "added!" text will disappear after 1sec
+            window.setTimeout(displayNone,1000);
+        }
+
+        //the function is to make the "added!" text disappear
+        function displayNone(){
+            document.getElementsByClassName("add-cart-msg")[0].style.display = "none";
         }
 
 
