@@ -1,10 +1,30 @@
 <?php 
+if(isset($_POST['submit'])){
+/***** Customer Details *****/
+// Getting variables from form
+$name = $_POST['firstname'] . ' ' . $_POST['lastname']; 
+$firstName = $_POST['firstname'];
+$email = $_POST['email'];
+$address = $_POST['address'];
+$phoneNum = $_POST['phone-no'];
+
+include "dbconnect.php";
+
+$query = "insert into customers (name, email, address, phone_no) values ('".$name."', '".$email."', '".$address."', '".$phoneNum."')";
+
+echo $query;
+
+$result = $dbcnx->query($query);
+
+if ($result) {
+  echo $dbcnx->affected_rows. "New record created successfully";
+} else {
+  echo "Error has occured";
+}
 
 // Get customer's personal details from checkout page
-if(isset($_POST['submit'])){
     $to = "f32ee@localhost"; // this is the admin's Email address
-    $from = $_POST['email']; // this is the sender's email address
-    $firstName = $_POST['firstname'];
+    $from = $email; // this is the sender's email address
 
     // TO SENDER - Header and Message
     $subject = "We have received your payment!";
