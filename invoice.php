@@ -60,9 +60,49 @@
           <p id="order-id"><?php echo $orderID; ?></p>
         </div>
       </div>
-      <?php } 
+      <?php 
+        }
 
-      ?>
+        $product_table_name = "products";
+        $product_details_table_name = "product_details";
+        $product_image_table_name = "product_images";
+
+        $query = "SELECT * from orders_items WHERE order_ID=".$orderID;
+        $result = $dbcnx->query($query);
+        $num_results = $result->num_rows;
+
+        echo $num_results;
+
+        $result_details = array();
+
+        // From the order_items, get productID, colour and quantity
+        for ($i=0; $i < $num_results; $i++) {
+            $orderResult = $result->fetch_assoc();
+            // array_push($product_id, $orderResult["product_ID"]);
+            $result_details[$i] = array();
+            $result_details[$i]['product_id'] = $orderResult['product_ID'];
+            $result_details[$i]['colour_selected'] = $orderResult['colour'];
+            $result_details[$i]['qty'] = $orderResult['quantity'];
+
+            // results_details should contain product ID, colour, quantity, product model, price, detail ID and image link
+            $query = "SELECT * from " .$product_table_name." WHERE product_ID=".$result_details[$i]['product_id'];
+            $result = $dbcnx->query($query);
+            $product_result = $result->fetch_assoc();
+            $result_details[$i]['product_model'] = $product_result['product_model'];
+            $result_details[$i]['price'] = $product_result['price'];
+
+            $query = "SELECT * from product_details WHERE product_ID=".$result_details[$i]['product_id']." AND colour='". $result_details[$i]['colour_selected']."'";
+
+            $result = $dbcnx->query($query);
+            $detailResult = $result->fetch_assoc();
+            $result_details[$i]['detailID'] = $detailResult['details_ID'];
+
+            $query = "SELECT * from " .$product_image_table_name." WHERE details_ID=".$result_details[$i]['detailID'];
+            $result = $dbcnx->query($query);
+            $img_result = $result->fetch_assoc();
+            $result_details[$i]['img_link'] = $img_result['img_link'];
+        }
+        ?>
       <div class="receipt">
         <!-- Table Header -->
         <div class="table-head row">
@@ -78,46 +118,30 @@
           <div class="index">1.</div>
           <div class="description flex-row">
             <div class="product-img col-one-third">
-              <img src="img/product-images/1-Samsung-Flip3.png" alt="" />
+              <img src="<?php echo $result_details[0]['img_link'] ?>" alt="" />
             </div>
             <div class="product-details col-two-third">
-              <p class="product-model">Mobile Phone Model</p>
+              <p class="product-model"><?php echo $result_details[$i]['product_model'] ?></p>
 
               <div class="colour">
                 <span class="colour-text">Colour:</span>
                 <span
                   class="colour-wrapper"
-                  style="background-color: #e5dfc8"
+                  style="background-color: <?php echo $result_details[$i]['colour_selected'] ?>"
                 ></span>
               </div>
             </div>
           </div>
-          <div class="price">$189.80</div>
-          <div class="quantity">1</div>
-          <div class="product-total">$189.80</div>
-        </div>
-        <div class="item-details row">
-          <div class="index">2.</div>
-          <div class="description flex-row">
-            <div class="product-img col-one-third">
-              <img src="img/product-images/1-Samsung-Flip3.png" alt="" />
-            </div>
-            <div class="product-details col-two-third">
-              <p class="product-model">Mobile Phone Model</p>
-
-              <div class="colour">
-                <span class="colour-text">Colour:</span>
-                <span
-                  class="colour-wrapper"
-                  style="background-color: #e5dfc8"
-                ></span>
-              </div>
-            </div>
+          <div class="price">$ <?php echo $result_details[$i]['price'] ?></div>
+          <div class="quantity"><?php echo $result_details[$i]['qty'] ?></div>
+          <div class="product-total">$ 
+            <?php 
+              $rowTotal = $result_details[$i]['price'] * $qty[$i];
+              echo $rowTotal;
+            ?>
           </div>
-          <div class="price">$189.80</div>
-          <div class="quantity">1</div>
-          <div class="product-total">$189.80</div>
         </div>
+        
         <div class="table-footer"></div>
       </div>
       <div class="cost-table row">
