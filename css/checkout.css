@@ -101,7 +101,7 @@ input#your-card-no {
 }
 
 .btn {
-  padding: 15px 20px;
+  padding: 10px 20px;
   border-radius: 20px;
   cursor: pointer;
   font-weight: bold;
@@ -163,7 +163,8 @@ input#your-card-no {
   font-weight: bold;
 }
 
-.colour {
+.colour,
+.order-qty {
   padding-top: 1rem;
 }
 

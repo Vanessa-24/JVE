@@ -67,7 +67,7 @@
     //echo "<br>";
     //var_dump($details_id_shopcart);
     //echo "<br>";
-    //var_dump($result_details);
+    // var_dump($result_details);
 
 
     // var_dump($details_id);

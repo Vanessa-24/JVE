@@ -184,7 +184,6 @@
                   name="submit"
                   value="submit"
                   class="btn submit-btn"
-                  onclick="window.location.href = 'invoice.html';"
                 >
                   Submit
                 </button>
@@ -218,6 +217,9 @@
                   style="background-color: #2f2a27"
                 ></span>
               </div>
+              <div class="order-qty">
+                Quantity: 1
+              </div>
             </div>
             <div class="product-price">
               <p class="price">$445.00</p>
@@ -238,6 +240,9 @@
                   class="colour-wrapper"
                   style="background-color: #2f2a27"
                 ></span>
+              </div>
+              <div class="order-qty">
+                Quantity: 1
               </div>
             </div>
             <div class="product-price">

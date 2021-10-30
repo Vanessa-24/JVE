@@ -125,3 +125,10 @@ footer ul > li {
   display: flex;
   flex-wrap: wrap;
 }
+
+/* All links and button */
+
+a,
+button {
+  cursor: pointer;
+}

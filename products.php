@@ -136,7 +136,7 @@
             font-weight: bold;
         }
         .quantity{
-            padding: 30px 0 20px 0; 
+            padding: 30px 0; 
         }
         .quantity-btn{
             background-color: transparent;
@@ -151,6 +151,7 @@
         }
         .specifications{
             padding: 30px 0px;
+            font-weight: 100;
         }
         /* The dots/bullets/indicators */
         .dot {
@@ -164,7 +165,7 @@
             transition: background-color 0.6s ease;
         }
         .colour{
-            padding-bottom: 10px;
+            padding-bottom: 1rem;
         }
         
         .colour-picker-wrapper{
@@ -174,8 +175,11 @@
             background-color: #717171;
         }
     
-        .details{
+        .details {
             padding-top: 20px;
+            font-style: italic;
+            line-height: 1.5;
+            font-weight: 400;
         }
         .add-cart-msg{
             padding-left:20px;
@@ -209,9 +213,18 @@
             font-weight:bold;
             font-size:1.2rem;
         }
+
+        button.shopcart-btn {
+            font-size: 1.25rem;
+            padding: 10px 20px;
+            border-radius: 20px;
+            width: 60%;
+        }
+
         .shopcart-btn svg{
             padding-right: 10px;
             transform: scale(0.9);
+            margin-top: -2px;
         }
         .shopcart-btn:hover svg path{
             fill: white;
@@ -295,7 +308,7 @@
                     <?php echo $product_result['detail'];?>
                 </div>
                 <div class="specifications">
-                    <?php echo str_replace(">","<br><br>",$product_result['specification']);?>
+                    <?php echo str_replace(">","<br>",$product_result['specification']);?>
                 </div>
                 <div class="colour">
                     Color: <span class="colour-text"><?php echo $colours[0][0] ?></span>
