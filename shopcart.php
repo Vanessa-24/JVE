@@ -169,6 +169,7 @@
         }
         .shopcart-btn{
             margin-top:30px;
+            width:100%;
         }
     </style>
 </head>
@@ -252,8 +253,9 @@
                 echo '<td id="total"></td>';
                 echo '</tr>';
                 echo '</table>';
-                echo '<div class="shopcart-btn">';
-                echo 'Checkout';
+                echo '<div>';
+                echo '<button class="shopcart-btn" onclick="redirect()">';
+                echo 'Checkout </button>';
                 echo '</div>';
             }
         ?> 
@@ -410,7 +412,12 @@
             req.send(params);
 
         }
-    
+        
+        function redirect(){
+            var totalElement = document.getElementById("total");
+            var totalAmount = totalElement.innerHTML.substring(1);
+            window.location.href = "checkout-page.php?total="+totalAmount;
+        }
 
       </script>
     

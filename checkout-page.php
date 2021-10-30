@@ -7,6 +7,7 @@
     if (!isset($_SESSION['cart'])){
         $_SESSION['cart'] = array();
     }  
+    $total_amount = $_GET['total'];
     //var_dump($_SESSION);
     $details_id = array();
     $qty = array();
@@ -33,33 +34,15 @@
         $result = $dbcnx->query($query);
         $product_result = $result->fetch_assoc();
         $result_details[$i]['product_model'] = $product_result["product_model"];
-        $result_details[$i]['detail'] = $product_result["detail"];
-        $result_details[$i]['spec'] = $product_result["specification"];
         $result_details[$i]['price'] = $product_result["price"];
-        $query = "SELECT * from " .$product_details_table_name." WHERE product_ID=".$product_id[$i]. " AND stock>0";
+
+        $query = "SELECT * from " .$product_image_table_name." WHERE details_ID=".$details_id[$i];
         $result = $dbcnx->query($query);
-        $colour_codes = array();
-        $stock_arr = array();
-        //details id shopcart will contain the other colours as well bu details_id array only contain the id that the user has chose in the shopcart
-        $details_id_shopcart = array();
-        for($j=0; $j<$result->num_rows; $j++){
-            $details_result = $result->fetch_assoc();
-            array_push($stock_arr,$details_result['stock']);
-            array_push($colour_codes, $details_result['colour_code']);
-            array_push($details_id_shopcart,$details_result['details_ID']);
-        }
-        $result_details[$i]['details_id'] = $details_id_shopcart;
-        $img_link = array();
-        for ($j=0; $j <count($details_id_shopcart); $j++) {
-            $query = "SELECT * from " .$product_image_table_name." WHERE details_ID=".$details_id_shopcart[$j];
-            $result = $dbcnx->query($query);
-            $details_result = $result->fetch_assoc();
-            array_push($img_link,$details_result['img_link']);
-            
-        }
-        $result_details[$i]['img_link'] = $img_link;
-        $result_details[$i]['colours_code'] = $colour_codes;
+        $img_result = $result->fetch_assoc();
+        $result_details[$i]['img_link'] = $img_result['img_link'];
     }
+
+    //var_dump($result_details);
 ?>
 
 <!DOCTYPE html>
@@ -201,60 +184,34 @@
         <!-- Order Summary -->
         <div class="order-summary">
           <h4 class="order-label">Order Summary</h4>
-          <div class="row">
-            <div class="product-img">
-              <img
-                src="img/product-images/2-Samsung-Fold3.png"
-                alt="Product Image"
-              />
-            </div>
-            <div class="product-details">
-              <p class="model">Mobile Phone Model</p>
-              <div class="colour">
-                <span class="colour-text">Colour:</span>
-                <span
-                  class="colour-wrapper"
-                  style="background-color: #2f2a27"
-                ></span>
-              </div>
-              <div class="order-qty">
-                Quantity: 1
-              </div>
-            </div>
-            <div class="product-price">
-              <p class="price">$445.00</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="product-img">
-              <img
-                src="img/product-images/2-Samsung-Fold3.png"
-                alt="Product Image"
-              />
-            </div>
-            <div class="product-details">
-              <p class="model">Mobile Phone Model</p>
-              <div class="colour">
-                <span class="colour-text">Colour:</span>
-                <span
-                  class="colour-wrapper"
-                  style="background-color: #2f2a27"
-                ></span>
-              </div>
-              <div class="order-qty">
-                Quantity: 1
-              </div>
-            </div>
-            <div class="product-price">
-              <p class="price">$445.00</p>
-            </div>
-          </div>
+          <?php 
+            for($i=0; $i < count($result_details); $i++){
+              echo '<div class="row">';
+              echo '<div class="product-img">';
+              echo '<img src="'.$result_details[$i]['img_link'].'" alt="Product Image"/>';
+              echo '</div>';
+              echo '<div class="product-details">';
+              echo '<p class="model">'.$result_details[$i]['product_model'].'</p>';
+              echo '<div class="colour">';
+              echo '<span class="colour-text">Colour:</span>';
+              echo '<span class="colour-wrapper" style="background-color: '.$result_details[$i]['colour_selected'].'">';
+              echo '</span>';
+              echo '</div>';
+              echo '<div class="order-qty">Quantity: '.$qty[$i].'';
+              echo '</div>';
+              echo '</div>';
+              echo '<div class="product-price">';
+              echo '<p class="price">$'.$result_details[$i]['price'].'</p>';
+              echo '</div>';
+              echo '</div>';
+            }
+          ?>
           <div class="total row">
             <div>
               <h4>Total:</h4>
             </div>
             <div>
-              <h4 class="total-amt">$ 960.54</h4>
+              <h4 class="total-amt">$ <?php echo $total_amount;?></h4>
             </div>
           </div>
         </div>
