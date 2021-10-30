@@ -414,7 +414,9 @@
         }
         
         function redirect(){
-            window.location.href = "checkout-page.php";
+            var totalElement = document.getElementById("total");
+            var totalAmount = totalElement.innerHTML.substring(1);
+            window.location.href = "checkout-page.php?total="+totalAmount;
         }
 
       </script>
