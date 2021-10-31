@@ -76,6 +76,9 @@
         } else {
         echo "Error has occured";
         }
+
+        $query = "UPDATE product_details SET stock =  stock-".$qty[$i]." WHERE details_ID=".$details_id[$i];
+        $result = $dbcnx->query($query);
     }
     
     //  End session 
