@@ -1,6 +1,6 @@
 <?php 
   include "dbconnect.php";
-  $order_id = $_GET['order_id'];
+  $order_id = $_GET['orderid'];
   $order_items_table_name = "orders_items";
   $product_table_name = "products";
   $product_details_table_name = "product_details";
