@@ -91,7 +91,7 @@
 
     // TO SENDER - Header and Message
     $subject = "We have received your payment!";
-    $message = "Hello" . $firstName . "!\n\n" . "Your payment has been verified. Your order number is. " . $newOrderid . "\n\n" . "Here is a copy of your invoice:\n\n" . "http://192.168.56.2/f32ee/webapp-design-project/.invoice.php?orderNo=" . $newOrderid;
+    $message = "Hello " . $firstName . "!\n\n" . "Your payment has been verified. Your order number is " . $newOrderid . "\n\n" . "Here is a copy of your invoice:\n\n" . "http://192.168.56.2/f32ee/webapp-design-project/invoice.php?orderid=" . $newOrderid;
 
     $headers = 'From: f32ee@localhost' . "\r\n" . 'Reply-To: f32ee@localhost' . "\r\n" . 'X-Mailer: PHP/' . phpversion();
 

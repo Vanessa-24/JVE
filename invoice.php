@@ -63,55 +63,12 @@
       <?php 
         }
 
-        $product_table_name = "products";
-        $product_details_table_name = "product_details";
-        $product_image_table_name = "product_images";
+        $query = "SELECT orders_items.quantity, products.product_model, products.price, product_details.colour_code, product_images.img_link FROM orders_items INNER JOIN products ON orders_items.product_ID = products.product_ID INNER JOIN product_details ON products.product_ID = product_details.product_ID INNER JOIN product_images ON product_details.details_ID = product_images.details_ID WHERE order_ID=".$orderID." AND orders_items.colour = product_details.colour GROUP BY product_images.details_ID";
 
-        // $query = "SELECT * from orders_items WHERE order_ID=".$orderID;
-
-        $query = "SELECT orders_items.quantity, products.product_model, products.price, product_details.colour_code, product_images.img_link FROM orders_items INNER JOIN products ON orders_items.product_ID = products.product_ID INNER JOIN product_details ON products.product_ID = product_details.product_ID INNER JOIN product_images ON product_details.details_ID = product_images.details_ID WHERE order_ID=".$orderID." AND orders_items.colour = product_details.colour";
-
-        echo $query;
-        
         $result = $dbcnx->query($query);
         $num_results = $result->num_rows;
-
-        // $result_details = array();
-        // $product_id = array();
-        // $details_id = array();
-
-
-        // From the order_items, get productID, colour and quantity
-        
-        // for ($i=0; $i < $num_results; $i++) {
-        //     $orderResult = $result->fetch_assoc();
-        //     $result_details[$i] = array();
-        //     $result_details[$i]['prdtID'] = $orderResult['product_ID'];
-        //     $result_details[$i]['colour_name_selected'] = $orderResult['colour'];
-        //     $result_details[$i]['qty'] = $orderResult['quantity']; 
-
-        // }
-
-            //results_details should contain product ID, colour, quantity, product model, price, detail ID and image link
-            // $query = "SELECT * from " .$product_table_name." WHERE product_ID=".$result_details[$i]['prdtID'];
-            // $result = $dbcnx->query($query);
-            // $product_result = $result->fetch_assoc();
-            // $result_details[$i]['product_model'] = $product_result['product_model'];
-            // $result_details[$i]['price'] = $product_result['price'];
-
-            // $query = "SELECT * from product_details WHERE product_ID=".$result_details[$i]['prdtID']." AND colour='". $result_details[$i]['colour_selected']."'";
-            // $result = $dbcnx->query($query);
-            // $detailResult = $result->fetch_assoc();
-            // $result_details[$i]['detailID'] = $detailResult['details_ID'];
-            // $result_details[$i]['colour_selected'] = $detailResult['colour_ID'];
-
-            // $query = "SELECT * from " .$product_image_table_name." WHERE details_ID=".$result_details[$i]['detailID'];
-            // $result = $dbcnx->query($query);
-            // $img_result = $result->fetch_assoc();
-            // $result_details[$i]['img_link'] = $img_result['img_link'];
-
-            // for($i=0; $i < count($result_details); $i++){
         ?>
+        
       <div class="receipt">
         <!-- Table Header -->
         <div class="table-head row">
