@@ -121,3 +121,11 @@
 .icon svg {
   padding-left: 8px;
 }
+
+.no-product{
+  font-size:1.2rem;
+  grid-column: 1/4;
+  text-align: center;
+  font-weight: bold;
+  display:none;
+}

@@ -19,16 +19,22 @@ filters.forEach((filter) => {
     // Product count for filtered products
     numDisplayedproducts = itemsToShow.length;
     productCount.innerHTML = numDisplayedproducts + " products";
-
+    
     if (selectedFilter == "all") {
       itemsToHide = [];
       itemsToShow = document.querySelectorAll(".container [data-filter]");
-
+      
       // Product count for all products
       numDisplayedproducts = itemsToShow.length;
       productCount.innerHTML = numDisplayedproducts + " products";
     }
+    
+    if(numDisplayedproducts ==0){
+      document.getElementsByClassName("no-product")[0].style.display = "block";
+    } else{
+      document.getElementsByClassName("no-product")[0].style.display = "none";
 
+    }
     itemsToHide.forEach((el) => {
       el.classList.add("hide");
       el.classList.remove("show");
