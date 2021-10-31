@@ -227,6 +227,7 @@
               echo '</div>';
               echo '</div>';
               echo '<div class="product-price">';
+              echo '<p> Unit price: </p>';
               echo '<p class="price">$'.$result_details[$i]['price'].'</p>';
               echo '</div>';
               echo '</div>';
