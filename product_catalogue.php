@@ -112,6 +112,7 @@
           </a>
         </div>
         <?php } ?>
+        <div class="no-product">Sorry there isn't any product with this brand.</div>
       </div>
     </div>
     <?php
