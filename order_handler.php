@@ -48,10 +48,6 @@
 
     // INSERTING INTO ORDERS_ITEMS TABLE //
     // Setting up and retrieving product details array
-    $product_table_name = "products";
-    $product_details_table_name = "product_details";
-    $product_image_table_name = "product_images";
-
     $details_id = array();
     $qty = array();
     foreach ($_SESSION['cart'] as $key => $value) {
