@@ -60,9 +60,15 @@
           <p id="order-id"><?php echo $orderID; ?></p>
         </div>
       </div>
-      <?php } 
+      <?php 
+        }
 
-      ?>
+        $query = "SELECT orders_items.quantity, products.product_model, products.price, product_details.colour_code, product_images.img_link FROM orders_items INNER JOIN products ON orders_items.product_ID = products.product_ID INNER JOIN product_details ON products.product_ID = product_details.product_ID INNER JOIN product_images ON product_details.details_ID = product_images.details_ID WHERE order_ID=".$orderID." AND orders_items.colour = product_details.colour GROUP BY product_images.details_ID";
+
+        $result = $dbcnx->query($query);
+        $num_results = $result->num_rows;
+        ?>
+        
       <div class="receipt">
         <!-- Table Header -->
         <div class="table-head row">
@@ -72,52 +78,40 @@
           <div class="header-item">Qty</div>
           <div class="header-item">Total</div>
         </div>
-
+        <?php
+        for ($i=0; $i < $num_results; $i++) {
+            $orderResult = $result->fetch_assoc();
+        ?>
         <!-- Product details -->
         <div class="item-details row">
-          <div class="index">1.</div>
+          <div class="index"><?php echo $i+1; ?>.</p></div>
           <div class="description flex-row">
             <div class="product-img col-one-third">
-              <img src="img/product-images/1-Samsung-Flip3.png" alt="" />
+              <img src="<?php echo $orderResult['img_link'] ?>" alt="" />
             </div>
             <div class="product-details col-two-third">
-              <p class="product-model">Mobile Phone Model</p>
+              <p class="product-model"><?php echo $orderResult['product_model'] ?></p>
 
               <div class="colour">
                 <span class="colour-text">Colour:</span>
                 <span
                   class="colour-wrapper"
-                  style="background-color: #e5dfc8"
+                  style="background-color: <?php echo $orderResult['colour_code'] ?>"
                 ></span>
               </div>
             </div>
           </div>
-          <div class="price">$189.80</div>
-          <div class="quantity">1</div>
-          <div class="product-total">$189.80</div>
-        </div>
-        <div class="item-details row">
-          <div class="index">2.</div>
-          <div class="description flex-row">
-            <div class="product-img col-one-third">
-              <img src="img/product-images/1-Samsung-Flip3.png" alt="" />
-            </div>
-            <div class="product-details col-two-third">
-              <p class="product-model">Mobile Phone Model</p>
-
-              <div class="colour">
-                <span class="colour-text">Colour:</span>
-                <span
-                  class="colour-wrapper"
-                  style="background-color: #e5dfc8"
-                ></span>
-              </div>
-            </div>
+          <div class="price">$ <?php echo $orderResult['price'] ?></div>
+          <div class="quantity"><?php echo $orderResult['quantity'] ?></div>
+          <div class="product-total">$ 
+            <?php 
+              $rowTotal = $orderResult['price'] * $orderResult['quantity'];
+              echo number_format($rowTotal,2);
+            ?>
           </div>
-          <div class="price">$189.80</div>
-          <div class="quantity">1</div>
-          <div class="product-total">$189.80</div>
         </div>
+        <?php } ?>
+    
         <div class="table-footer"></div>
       </div>
       <div class="cost-table row">

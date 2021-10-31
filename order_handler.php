@@ -81,17 +81,20 @@
         echo "Error has occured";
         }
     }
-
+    
+    //  End session 
+    unset($_SESSION['cart']);
+    unset($_SESSION['total']);
+    session_destroy();
 
     /***** Mail Handler *****/
-    if(isset($_POST['submit'])){
     // Get customer's personal details from checkout page
     $to = "f32ee@localhost"; // this is the admin's Email address
     $from = $email; // this is the sender's email address
 
     // TO SENDER - Header and Message
     $subject = "We have received your payment!";
-    $message = "Hello" . $firstName . "!\n\n" . "Your payment has been verified. Your order number is. " . $newOrderid . "\n\n" . "Here is a copy of your invoice:\n\n" . "http://192.168.56.2/f32ee/webapp-design-project/.invoice.php?orderNo=" . $newOrderid;
+    $message = "Hello " . $firstName . "!\n\n" . "Your payment has been verified. Your order number is " . $newOrderid . ".\n\n" . "Here is a copy of your invoice:\n" . "http://192.168.56.2/f32ee/webapp-design-project/invoice.php?orderid=" . $newOrderid;
 
     $headers = 'From: f32ee@localhost' . "\r\n" . 'Reply-To: f32ee@localhost' . "\r\n" . 'X-Mailer: PHP/' . phpversion();
 
@@ -99,8 +102,7 @@
 
     // You can also use header('Location: thank_you.php'); to redirect to another page.
     // You cannot use header and echo together. It's one or the other.
-    }
-
     // Ref to invoice (This has to be at the very end)
      header("Location: invoice.php?orderid=".$newOrderid);
+
 ?>
