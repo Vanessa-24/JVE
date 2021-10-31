@@ -8,8 +8,13 @@
         $_SESSION['cart'] = array();
     }  
 
+    if (count($_SESSION['cart'])==0){
+      $total_amount = 0;
+    } else {
+      $total_amount = $_GET['total'];
+      
+    }
     // Save total amount in session
-    $total_amount = $_GET['total'];
     $_SESSION['total']= $total_amount;
 
     //var_dump($_SESSION);
