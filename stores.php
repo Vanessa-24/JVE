@@ -26,14 +26,14 @@
         <img src="img/stores-orchard-branch.jpg" alt="Orchard Store" />
       </div>
       <div class="store-branch">
-        <p class="branch-name">Orchard Store</p>
+        <p class="branch-name">Jurong East Store</p>
         <p class="branch-loc">
           Location details 121232 <br />
           Tel: +65 2342 1234 <br />
           Opening Hours: 9am - 11pm <br />
           (Mon - Fri) 10am - 11pm (Sat - Sun)
         </p>
-        <img src="img/stores-orchard-branch.jpg" alt="Orchard Store" />
+        <img src="img/stores-jurong-branch.png" alt="Orchard Store" />
       </div>
     </div>
     <?php

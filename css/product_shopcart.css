@@ -1,38 +1,36 @@
-
 /******************************************************************/
-.colour-circle{
-    border-radius: 50%; 
-    width: 20px; 
-    height: 20px;
-    display: inline-block;
-    position: relative;
-    margin-right: 8px;
-    border: 1px solid black;
-
+.colour-circle {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: relative;
+  margin-right: 8px;
+  border: 1px solid black;
 }
-.colour-circle.selected:after{
-    border-radius: 50%;
-    border: 2px solid #404286;
-    position: absolute;
-    content: '';
-    top: -5px;
-    left: -5px;
-    bottom: -5px;
-    right: -5px;
+.colour-circle.selected:after {
+  border-radius: 50%;
+  border: 2px solid #404286;
+  position: absolute;
+  content: "";
+  top: -5px;
+  left: -5px;
+  bottom: -5px;
+  right: -5px;
 }
-.shopcart-btn{
-    background-color: transparent;
-    color: #4D2E7A;
-    border: 2px solid #4D2E7A; 
-    border-radius: 15px;
-    padding: 8px 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    font-family: Roboto, Arial;
+.shopcart-btn {
+  background-color: transparent;
+  color: #4d2e7a;
+  border: 2px solid #4d2e7a;
+  border-radius: 15px;
+  padding: 8px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-family: Roboto, Arial;
 }
-.shopcart-btn:hover{
-    background-color: #4D2E7A;
-    color: white;
+.shopcart-btn:hover {
+  background-color: #4d2e7a;
+  color: white;
 }
