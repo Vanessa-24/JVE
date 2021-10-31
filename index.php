@@ -12,9 +12,8 @@
     <?php
     include ('header.php');
     ?>
-    <div id="smartphones" class="container">
-      <div class="row">
-        <div class="description column-half">
+    <div id="smartphones" class="odd row">
+        <div class="description-col">
           <h1>Smartphones</h1>
           <h3>Experience the world from your fingertips</h3>
           <p>From S$1,149</p>
@@ -27,17 +26,16 @@
             </span>
           </a>
         </div>
-        <div class="main-product-img column-half right-col">
+        <div class="image-col">
           <img src="img/iphone-13.png" alt="iPhone 13" />
         </div>
       </div>
     </div>
-    <div id="laptops" class="container">
-      <div class="row">
-        <div class="main-product-img column-half">
+    <div id="laptops" class="even row">
+        <div class="image-col">
           <img src="img/dell-laptop.png" alt="DELL laptop" />
         </div>
-        <div class="description column-half right-col">
+        <div class="description-col">
           <h1>Laptops</h1>
           <h3>Anywhere, Anytime</h3>
           <p>From S$499</p>
@@ -52,9 +50,8 @@
         </div>
       </div>
     </div>
-    <div id="desktops" class="container">
-      <div class="row">
-        <div class="description column-half">
+    <div id="desktops" class="odd row">
+        <div class="description-col">
           <h1>Desktops</h1>
           <h3>Made of the highest quality</h3>
           <p>From S$1,786</p>
@@ -67,14 +64,13 @@
             </span>
           </a>
         </div>
-        <div class="main-product-img column-half right-col">
+        <div class="image-col">
           <img src="img/lenovo-desktop.png" alt="Lenovo Desktop" />
         </div>
       </div>
     </div>
-    <div class="container">
-      <div class="row">
-        <div id="watches" class="column-half">
+    <div class="final row">
+        <div id="watches" >
           <h2>Watches</h2>
           <a href="product_catalogue.php?category=Watches" class="white-btn"
             >Learn More
@@ -85,7 +81,7 @@
             </span>
           </a>
         </div>
-        <div id="earbuds" class="column-half">
+        <div id="earbuds">
           <h2>Earbuds</h2>
           <a href="product_catalogue.php?category=Earbuds" class="white-btn"
             >Learn More
