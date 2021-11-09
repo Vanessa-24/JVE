@@ -34,7 +34,6 @@
         $product_result = $result->fetch_assoc();
         $result_details[$i]['product_model'] = $product_result["product_model"];
         $result_details[$i]['detail'] = $product_result["detail"];
-        $result_details[$i]['spec'] = $product_result["specification"];
         $result_details[$i]['price'] = $product_result["price"];
         $query = "SELECT * from " .$product_details_table_name." WHERE product_ID=".$product_id[$i]. " AND stock>0";
         $result = $dbcnx->query($query);
@@ -267,28 +266,13 @@
     ?>
     <script src="js/product.js"></script>
     <script>
-        var acc = document.getElementsByClassName("accordion");
         var i;
         var panelHeight = 120;
         var resultDetails = <?php echo json_encode($result_details, JSON_HEX_TAG); ?>;
         var cartDetailsId = <?php echo json_encode($details_id, JSON_HEX_TAG); ?>;
-        console.log(resultDetails);
+        //console.log(resultDetails);
         updateSummary();
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function() {
-                /* Toggle between adding and removing the "active" class,
-                to highlight the button that controls the panel */
-                this.classList.toggle("active");
 
-                /* Toggle between hiding and showing the active panel */
-                var panel = this.nextElementSibling;
-                if (panel.style.maxHeight) {
-                    panel.style.maxHeight = null;
-                } else {
-                    panel.style.maxHeight =  panelHeight + "px";
-                }
-            });
-        }
           // for color picker
         var colours = document.getElementsByClassName("colour-circle");
         for(var i =0; i <colours.length; i++){
@@ -328,6 +312,7 @@
             var qty_text = thisTRElement.getElementsByClassName("quantity-text")[0];
             // //reset qty to 1
             qty_text.value = 1;
+            cartDetailsId[thisTRElement.rowIndex] = resultDetails[thisTRElement.rowIndex]["details_id"][numColour];
             updateSessionVariable(false,resultDetails[thisTRElement.rowIndex]["details_id"][numColour],1,resultDetails[thisTRElement.rowIndex]["details_id"][prevId]);
             updatePrice(this);
 
