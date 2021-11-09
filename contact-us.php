@@ -56,6 +56,7 @@
             name="message"
             rows="10"
             placeholder="Your Message..."
+            required
           ></textarea>
         </div>
 
