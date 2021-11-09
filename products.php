@@ -350,7 +350,7 @@
     <script src="js/product.js"></script>
     <script>
         checkStock();
-        //store php variale in javascript
+        //store php variable in javascript
         var productID = <?php echo json_encode($product_id, JSON_HEX_TAG); ?>;
         var coloursDetails = <?php echo json_encode($colours, JSON_HEX_TAG); ?>;
         var detailsID = <?php echo json_encode($id_to_query, JSON_HEX_TAG); ?>;
